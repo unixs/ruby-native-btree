@@ -1,0 +1,50 @@
+{
+  // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+  // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+  // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "test",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceRoot}/tmp/test.rb"
+    },
+    {
+      "name": "(gdb) Ruby",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${env:MY_RUBY_HOME}/bin/ruby",
+      "args": [
+        "tmp/test.rb"
+      ],
+      "cwd": "${workspaceRoot}",
+      "MIMode": "gdb",
+      "setupCommands": [
+          {
+              "description": "Включить автоматическое форматирование для gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          }
+      ],
+    },
+    {
+      "name": "extconf.rb",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceRoot}/ext/native_btree/extconf.rb",
+      "cwd": "${workspaceRoot}/tmp"
+    },
+    {
+      "name": "Rake compile",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${env:GEM_HOME}/bin/rake",
+      "cwd": "${workspaceRoot}",
+      "args": [
+        "compile"
+      ],
+      "showDebuggerOutput": true
+    }
+  ]
+}
