@@ -7,15 +7,24 @@
 
 extern "C" {
 
-static void btree_free(BTree *btree)
+static void
+btree_free(BTree *btree)
 {
   delete btree;
 }
 
-static void btree_mark(gpointer obj)
+static void
+btree_mark(gpointer obj)
 {
   ((BTree *) obj)->mark();
 }
+
+static VALUE
+btree_enum_size(VALUE tree, VALUE args, VALUE eobj)
+{
+  return btree_size(tree);
+}
+
 
 VALUE
 btree_new(VALUE klass)
@@ -116,7 +125,7 @@ btree_has(VALUE self, VALUE key)
 VALUE
 btree_each(VALUE self)
 {
-  rb_need_block();
+  RETURN_SIZED_ENUMERATOR(self, 0, 0, btree_enum_size);
 
   VALUE block = rb_block_lambda();
 
