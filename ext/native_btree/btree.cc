@@ -96,11 +96,11 @@ BTree::has(VALUE key)
 {
   bool result = g_tree_lookup(this->tree, reinterpret_cast<gconstpointer>(key));
 
-  if (result == NULL) {
-    return false;
+  if (!result) {
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 gboolean
