@@ -102,3 +102,21 @@ BTree::has(VALUE key)
 
   return true;
 }
+
+gboolean
+BTree::traverseFunc(gpointer k, gpointer v, gpointer b)
+{
+  const VALUE key = reinterpret_cast<VALUE>(k);
+  const VALUE value = reinterpret_cast<VALUE>(v);
+  const VALUE block = reinterpret_cast<VALUE>(b);
+
+  rb_funcall(block, rb_intern("call"), 2, key, value);
+
+  return FALSE;
+}
+
+void
+BTree::each(VALUE block)
+{
+  g_tree_foreach(this->tree, BTree::traverseFunc, reinterpret_cast<gpointer>(block));
+}

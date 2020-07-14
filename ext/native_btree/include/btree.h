@@ -38,6 +38,9 @@ class BTree {
     VALUE
     get(VALUE key);
 
+    void
+    each(VALUE block);
+
   private:
     GTree *tree;
     VALUE comparator;
@@ -50,5 +53,8 @@ class BTree {
 
     static gint
     markRValue(gpointer key, gpointer value, gpointer not_used);
+
+    static gboolean
+    traverseFunc(gpointer k, gpointer v, gpointer data);
 };
 

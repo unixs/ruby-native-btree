@@ -1,4 +1,3 @@
-require "file_utils"
 require File.expand_path("../lib/native_btree/version", __FILE__)
 
 spec = Gem::Specification.new do |s|
@@ -12,7 +11,7 @@ spec = Gem::Specification.new do |s|
   s.email = ['webmaster@unixcomp.org'.freeze]
   s.licenses = ['MIT'.freeze]
   s.homepage = 'https://github.com/unixs/ruby-native-btree'.freeze
-  s.extensions = FileList["ext/**/extconf.rb".freeze]
+  s.extensions = Rake::FileList["ext/**/extconf.rb".freeze]
   s.files = [
     'ext/native_btree/native_btree.cc'.freeze,
     'lib/native_btree.rb'.freeze,

@@ -18,5 +18,6 @@ Init_native_btree()
   rb_define_method(btree_class, "delete", btree_delete, 1);
   rb_define_method(btree_class, "clear", btree_clear, 0);
   rb_define_method(btree_class, "has", btree_has, 1);
+  rb_define_method(btree_class, "each", btree_each, 0);
 }
 

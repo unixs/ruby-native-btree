@@ -35,6 +35,9 @@ btree_clear(VALUE self);
 VALUE
 btree_has(VALUE self, VALUE key);
 
+VALUE
+btree_each(VALUE self);
+
 #if defined(__cplusplus)
 }
 #endif

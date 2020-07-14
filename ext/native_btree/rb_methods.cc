@@ -113,4 +113,20 @@ btree_has(VALUE self, VALUE key)
   return result ? Qtrue : Qfalse;
 }
 
+VALUE
+btree_each(VALUE self)
+{
+  rb_need_block();
+
+  VALUE block = rb_block_lambda();
+
+  BTree *tree;
+  Data_Get_Struct(self, BTree, tree);
+
+  tree->each(block);
+
+  return Qnil;
+}
+
+
 }
