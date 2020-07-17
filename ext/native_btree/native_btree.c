@@ -21,5 +21,10 @@ Init_native_btree()
   rb_define_method(btree_class, "clear", btree_clear, 0);
   rb_define_method(btree_class, "has", btree_has, 1);
   rb_define_method(btree_class, "each", btree_each, 0);
+  rb_define_method(btree_class, "<=>", btree_cmp, 1);
+  rb_define_method(btree_class, "eql?", btree_equal, 1);
+  rb_define_alias(btree_class, "==", "eql?");
+  // TODO: to_ary
+  // TODO: to_hash
 }
 

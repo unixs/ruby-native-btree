@@ -7,6 +7,12 @@
 
 extern "C" {
 
+class BTreeEQCtxt {
+  public:
+    VALUE eq = Qtrue;
+    BTree *tree2 = nullptr;
+};
+
 static void
 btree_free(BTree *btree)
 {
@@ -16,7 +22,7 @@ btree_free(BTree *btree)
 static void
 btree_mark(gpointer obj)
 {
-  ((BTree *) obj)->mark();
+  reinterpret_cast<BTree *>(obj)->mark();
 }
 
 static VALUE
@@ -137,5 +143,79 @@ btree_each(VALUE self)
   return Qnil;
 }
 
+// TODO: Need implementation
+VALUE
+btree_cmp(VALUE self, VALUE tree2)
+{
+  return INT2NUM(0);
+}
+
+static gboolean
+eql_comparator(gpointer k, gpointer v, gpointer data)
+{
+  VALUE key = reinterpret_cast<VALUE>(k);
+  VALUE val = reinterpret_cast<VALUE>(v);
+  BTreeEQCtxt *context = reinterpret_cast<BTreeEQCtxt *>(data);
+
+  VALUE val2 = context->tree2->get(key);
+
+  // key not found
+  if (NIL_P(val2)) {
+    context->eq = Qfalse;
+
+    return TRUE;
+  }
+
+  // values !eql
+  if (!rb_eql(val, val2)) {
+    context->eq = Qfalse;
+
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+static VALUE//      obj         arg        recur
+recursive_eql(VALUE tree, VALUE tree2, int recur)
+{
+  if (recur)
+    return Qtrue; /* Subtle! */
+
+  BTree *t, *t2;
+  Data_Get_Struct(tree, BTree, t);
+  Data_Get_Struct(tree2, BTree, t2);
+
+  BTreeEQCtxt context;
+  // context.eq == Qtrue;
+
+  context.tree2 = t2;
+
+  t->each(eql_comparator, reinterpret_cast<gpointer>(&context));
+
+  return context.eq;
+}
+
+VALUE
+btree_equal(VALUE self, VALUE tree2)
+{
+  BTree *t, *t2;
+  Data_Get_Struct(self, BTree, t);
+  Data_Get_Struct(tree2, BTree, t2);
+
+  if (self == tree2)
+    return Qtrue;
+
+  if (CLASS_OF(tree2) != btree_class)
+    return Qfalse;
+
+  if (t->size() != t2->size() || t->height() != t2->height())
+    return Qfalse;
+
+  if (t->size() == 0)
+    return Qtrue;
+  //                              func           obj   paired arg
+  return rb_exec_recursive_paired(recursive_eql, self, tree2, tree2);
+}
 
 }

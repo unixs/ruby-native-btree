@@ -28,5 +28,7 @@ $INCFLAGS << local_include.map{|dir| " -I#{dir}" }.join("")
 CONFIG["debugflags"] = "-ggdb3"
 CONFIG["optflags"] = "-O0"
 
+$CXXFLAGS += "-O0 -ggdb3 -pipe"
+
 create_header
 create_makefile "native_btree/native_btree"

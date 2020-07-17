@@ -41,6 +41,9 @@ class BTree {
     void
     each(VALUE block);
 
+    void
+    each(GTraverseFunc func, gpointer data);
+
   private:
     GTree *tree;
     VALUE comparator;

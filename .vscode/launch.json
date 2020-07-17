@@ -27,6 +27,7 @@
               "ignoreFailures": true
           }
       ],
+      "preLaunchTask": "rake: compile"
     },
     {
       "name": "extconf.rb",

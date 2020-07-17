@@ -120,3 +120,9 @@ BTree::each(VALUE block)
 {
   g_tree_foreach(this->tree, BTree::traverseFunc, reinterpret_cast<gpointer>(block));
 }
+
+void
+BTree::each(GTraverseFunc func, gpointer data)
+{
+  g_tree_foreach(this->tree, func, data);
+}

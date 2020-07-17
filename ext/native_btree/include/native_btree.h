@@ -38,6 +38,12 @@ btree_has(VALUE self, VALUE key);
 VALUE
 btree_each(VALUE self);
 
+VALUE
+btree_cmp(VALUE self, VALUE tree2);
+
+VALUE
+btree_equal(VALUE self, VALUE tree2);
+
 #if defined(__cplusplus)
 }
 #endif
