@@ -1,4 +1,5 @@
-require File.expand_path("../lib/native_btree/version", __FILE__)
+require 'rake'
+require_relative "lib/native_btree/version"
 
 spec = Gem::Specification.new do |s|
   s.name = 'native_btree'.freeze
@@ -6,18 +7,13 @@ spec = Gem::Specification.new do |s|
 
   s.platform = Gem::Platform::RUBY
   s.date = '2020-07-11'.freeze
-  s.summary = 'Bindings to GTree data stucture from libglib.'.freeze
+  s.summary = 'Bindings to GTree data stucture from libglib-2.0'.freeze
   s.authors = ['Alexander Feodorov'.freeze]
   s.email = ['webmaster@unixcomp.org'.freeze]
   s.licenses = ['MIT'.freeze]
   s.homepage = 'https://github.com/unixs/ruby-native-btree'.freeze
-  s.extensions = Rake::FileList["ext/**/extconf.rb".freeze]
-  s.files = [
-    'ext/native_btree/native_btree.cc'.freeze,
-    'lib/native_btree.rb'.freeze,
-    'lib/native_btree/version.rb'.freeze
-  ]
+  s.extensions = FileList["ext/**/extconf.rb".freeze]
+  s.files = FileList['lib/**/*.rb', 'ext/**/*.{rb,c,h,cc}'.freeze]
   s.require_paths = ['lib'.freeze]
+  s.required_ruby_version = '>= 2.5'
 end
-
-Rake::ExtensionTask.new('native_btree', spec)

@@ -20,6 +20,8 @@ abort "g_tree_search() not found"     unless have_func 'g_tree_search'
 abort "g_tree_destroy() not found"    unless have_func 'g_tree_destroy'
 abort "g_tree_height() not found"     unless have_func 'g_tree_height'
 
+$DEBUG = true
+
 $VPATH.concat %w(
   $(srcdir)/include
 )
@@ -27,8 +29,7 @@ $VPATH.concat %w(
 $INCFLAGS << local_include.map{|dir| " -I#{dir}" }.join("")
 CONFIG["debugflags"] = "-ggdb3"
 CONFIG["optflags"] = "-O0"
-
-$CXXFLAGS += "-O0 -ggdb3 -pipe"
+$CXXFLAGS = "-O0 -ggdb3 -pipe"
 
 create_header
 create_makefile "native_btree/native_btree"

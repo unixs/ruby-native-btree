@@ -54,3 +54,4 @@ mkmf.log
 ext/**/Makefile
 tmp/
 .idea/
+pkg/

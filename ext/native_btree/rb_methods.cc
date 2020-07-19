@@ -147,7 +147,7 @@ btree_each(VALUE self)
 VALUE
 btree_cmp(VALUE self, VALUE tree2)
 {
-  return INT2NUM(0);
+  return Qnil;
 }
 
 static gboolean
