@@ -2,7 +2,7 @@ require "mkmf"
 
 local_include = %w(
   $(srcdir)/include
-);
+)
 
 ldflags = cppflags = nil
 
@@ -26,10 +26,10 @@ $VPATH.concat %w(
   $(srcdir)/include
 )
 
-$INCFLAGS << local_include.map{|dir| " -I#{dir}" }.join("")
-CONFIG["debugflags"] = "-ggdb3"
+$INCFLAGS << local_include.map { |dir| " -I#{dir}" }.join()
+CONFIG["debugflags"] = "-g"
 CONFIG["optflags"] = "-O0"
-$CXXFLAGS = "-O0 -ggdb3 -pipe"
+$CXXFLAGS = "-O0 -g -pipe"
 
 create_header
 create_makefile "native_btree/native_btree"

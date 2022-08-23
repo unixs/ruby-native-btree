@@ -1,11 +1,12 @@
-require 'rake/extensiontask'
+# frozen_string_literal: true
 
-GEMSPEC = Gem::Specification.load("native_btree.gemspec")
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
 
-# add your default gem packing task
-Gem::PackageTask.new(GEMSPEC) do |pkg|
-end
+RSpec::Core::RakeTask.new(:spec)
 
-Rake::ExtensionTask.new 'native_btree', GEMSPEC do |ext|
-  ext.lib_dir = "lib/native_btree"
-end
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+task default: %i[rubocop spec]

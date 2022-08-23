@@ -4,12 +4,10 @@
       "name": "Linux",
       "includePath": [
         "${workspaceFolder}/**",
-        "${MY_RUBY_HOME}/include/**",
-        "/usr/include/glib-2.0",
-        "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+        "${MY_RUBY_HOME}/include/**"
       ],
       "defines": [],
-      "compilerPath": "/usr/bin/gcc-9",
+      "compilerPath": "/usr/bin/clang",
       "intelliSenseMode": "gcc-x64",
       "cStandard": "c11",
       "cppStandard": "c++17"

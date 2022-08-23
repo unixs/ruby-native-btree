@@ -1,0 +1,46 @@
+require:
+  - rubocop-rspec
+  - rubocop-rake
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.6
+
+Style/StringLiterals:
+  Enabled: false
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Style/GlobalVars:
+  Exclude:
+    - '**/extconf.rb'
