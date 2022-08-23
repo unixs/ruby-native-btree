@@ -1,4 +1,3 @@
-require "rake"
 require_relative "lib/native_btree/version"
 
 Gem::Specification.new do |s|
