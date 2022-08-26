@@ -1,5 +1,4 @@
 #ifndef _NATIVE_BTREE_
-#include <ruby.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -7,6 +6,7 @@ extern "C" {
 
 extern VALUE btree_class;
 extern VALUE btree_module;
+extern VALUE btree_class_from;
 
 VALUE
 btree_new(VALUE klass);

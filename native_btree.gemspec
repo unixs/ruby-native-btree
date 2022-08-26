@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.email = ['webmaster@unixcomp.org']
   s.licenses = ['LGPLv3']
   s.homepage = 'https://github.com/unixs/ruby-native-btree'
-  # s.extensions = FileList["ext/**/extconf.rb"]
+  s.extensions = ["ext/#{s.name}/extconf_cmake.rb"]
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   s.files = Dir.chdir(__dir__) do
@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
     end
   end
   s.bindir = "bin"
-  s.executables = s.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  s.executables = s.files.grep(%r{\Abin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.required_ruby_version = '>= 2.6'
 
