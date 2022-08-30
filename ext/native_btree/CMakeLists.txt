@@ -3,6 +3,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/${EXT_NAME})
 
 include_directories(include)
 
+message("Find ext deps.")
+
 pkg_check_modules(GLIB2 REQUIRED glib-2.0)
 
 # include_directories(include ${GLIB2_INCLUDE_DIRS})

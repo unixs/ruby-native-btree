@@ -3,4 +3,4 @@ module NativeBtree
 end
 
 require "native_btree/version"
-# require "native_btree/native_btree"
+require "native_btree/native_btree"

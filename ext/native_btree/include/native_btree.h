@@ -1,5 +1,9 @@
 #ifndef _NATIVE_BTREE_
 
+#define NATIVE_BTREE "NativeBtree"
+#define NATIVE_BTREE_CLASS "Btree"
+
+
 #if defined(__cplusplus)
 extern "C" {
 #endif

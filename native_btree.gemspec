@@ -19,29 +19,28 @@ Gem::Specification.new do |s|
   s.description = 'Ruby bindings to GTree balanced binary tree from GLib library.'
   s.authors = ['Alexander Feodorov']
   s.email = ['webmaster@unixcomp.org']
-  s.licenses = ['LGPLv3']
+  s.licenses = ['LGPL-3.0-or-later']
   s.homepage = 'https://github.com/unixs/ruby-native-btree'
   s.extensions = ["ext/#{s.name}/extconf_cmake.rb"]
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  s.files = Dir.chdir(__dir__) do
-    `git ls-files -z`.split("\x0").reject do |f|
-      (f == __FILE__) || f.match(%r{\A(?:(?:bin|test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
-    end
-  end
+
+  s.files = Dir['{bin,ext,lib,spec}/**/*']
+  s.files += Dir['*.{md}']
+  s.files += %w[Rakefile Gemfile CMakeLists.txt native_btree.gemspec LICENSE]
+
   s.bindir = "bin"
   s.executables = s.files.grep(%r{\Abin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.required_ruby_version = '>= 2.6'
 
-  s.add_development_dependency 'awesome_print'
-  s.add_development_dependency 'debase'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'ruby-debug-ide'
-  s.add_development_dependency 'solargraph'
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'rubocop-rake'
-  s.add_development_dependency 'rubocop-rspec'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec'
+  s.add_dependency 'rubocop', '~> 1.35.0'
+  s.add_dependency 'rubocop-rake', '~> 0.6.0'
+  s.add_dependency 'rubocop-rspec', '~> 2.12.1'
+  s.add_dependency 'rake', '~> 13.0.6'
+  s.add_dependency 'rspec', '~> 3.11.0'
+
+  s.add_development_dependency 'awesome_print', '~> 1.9'
+  s.add_development_dependency 'debase', '~> 0.2'
+  s.add_development_dependency 'pry', '~> 0.14'
+  s.add_development_dependency 'ruby-debug-ide', '~> 0.7'
+  s.add_development_dependency 'solargraph', '~> 0.46'
 end

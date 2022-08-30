@@ -8,4 +8,10 @@ RSpec.describe NativeBtree do
   it "does something useful" do
     expect((1 + 1)).to be(2)
   end
+
+  describe NativeBtree::Btree do
+    it "respond to from" do
+      expect(described_class.from).to be(10)
+    end
+  end
 end

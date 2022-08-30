@@ -1,5 +1,7 @@
 #include <ruby.h>
 
+#include <native_btree.h>
+
 VALUE btree_class;
 VALUE btree_module;
 VALUE btree_class_from;
@@ -18,8 +20,8 @@ btree_from(VALUE klass)
 void
 Init_native_btree()
 {
-  btree_module = rb_define_module("NativeBtree");
-  btree_class = rb_define_class_under(btree_module, "BTree", rb_cObject);
+  btree_module = rb_define_module(NATIVE_BTREE);
+  btree_class = rb_define_class_under(btree_module, NATIVE_BTREE_CLASS, rb_cObject);
   rb_define_singleton_method(btree_class, "from", btree_from, 0);
 }
 

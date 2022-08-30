@@ -9,10 +9,17 @@
 
 # rspec failure tracking
 .rspec_status
-Gemfile.lock
 build/
 *.log
 *.bundle
 .DS_Store
 ext/**/Makefile
 *.o
+vendor/bundle
+/*.gem
+.gem
+.bundle
+*_history
+.cache/
+.config/
+*.so
