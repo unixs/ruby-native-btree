@@ -44,3 +44,7 @@ Gemspec/OrderedDependencies:
 Style/GlobalVars:
   Exclude:
     - '**/extconf.rb'
+
+Naming/VariableNumber:
+  Exclude:
+    - Gemfile

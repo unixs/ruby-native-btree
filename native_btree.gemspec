@@ -36,11 +36,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubocop-rake', '~> 0.6.0'
   s.add_dependency 'rubocop-rspec', '~> 2.12.1'
   s.add_dependency 'rake', '~> 13.0.6'
-  s.add_dependency 'rspec', '~> 3.11.0'
-
-  s.add_development_dependency 'awesome_print', '~> 1.9'
-  s.add_development_dependency 'debase', '~> 0.2'
-  s.add_development_dependency 'pry', '~> 0.14'
-  s.add_development_dependency 'ruby-debug-ide', '~> 0.7'
-  s.add_development_dependency 'solargraph', '~> 0.46'
 end
