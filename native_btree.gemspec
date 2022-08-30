@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.bindir = "bin"
   s.executables = s.files.grep(%r{\Abin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.required_ruby_version = '>= 2.6'
+  s.required_ruby_version = '>= 2.5'
 
   s.add_dependency 'rubocop', '~> 1.35.0'
   s.add_dependency 'rubocop-rake', '~> 0.6.0'
