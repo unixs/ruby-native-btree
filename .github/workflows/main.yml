@@ -15,8 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu, macos]
-        ruby:
-          - '2.7'
+        ruby: [2.5, 2.6, 2.7]
 
     steps:
     - uses: actions/checkout@v3
@@ -30,4 +29,6 @@ jobs:
       run: bundle exec rake rubocop
 
     - name: Test
-      run: bundle exec rake spec
+      run: |
+        bundle exec rake cmake:build
+        bundle exec rake spec
