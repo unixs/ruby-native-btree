@@ -1,11 +1,48 @@
-require 'rake/extensiontask'
+# frozen_string_literal: true
 
-GEMSPEC = Gem::Specification.load("native_btree.gemspec")
+require "bundler/gem_tasks"
 
-# add your default gem packing task
-Gem::PackageTask.new(GEMSPEC) do |pkg|
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+  warn "RSpec rake tasks was not loaded"
 end
 
-Rake::ExtensionTask.new 'native_btree', GEMSPEC do |ext|
-  ext.lib_dir = "lib/native_btree"
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+rescue LoadError
+  warn "Rubocop rake tasks was not loaded"
+end
+
+task default: %i[cmake:build]
+
+BUILD_DIR = "build"
+
+namespace :cmake do
+  desc "Remove build directory"
+  task :rmbuild do
+    sh "rm -rf #{BUILD_DIR}"
+  end
+
+  desc "Configure ext CMake project"
+  task :configure do
+    sh "cmake . -B #{BUILD_DIR}"
+  end
+
+  desc "Build ext CMake project"
+  task build: %i[cmake:configure] do
+    sh "cmake --build #{BUILD_DIR}"
+  end
+
+  desc "`Rebuild ext CMake project"
+  task rebuild: %i[cmake:configure] do
+    sh "cmake --build #{BUILD_DIR} --clean-first"
+  end
+
+  desc "Clean ext CMake project"
+  task :clean do
+    sh "cmake --build #{BUILD_DIR} --target clean"
+  end
 end

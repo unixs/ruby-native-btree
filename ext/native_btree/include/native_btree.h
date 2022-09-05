@@ -1,13 +1,11 @@
 #ifndef _NATIVE_BTREE_
-#include <ruby.h>
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
+#include <common.h>
+#include <constructor.h>
+#include <instance.h>
+#include <iterators.h>
 
-extern VALUE btree_class;
-extern VALUE btree_module;
-
+/*
 VALUE
 btree_new(VALUE klass);
 
@@ -43,9 +41,6 @@ btree_cmp(VALUE self, VALUE tree2);
 
 VALUE
 btree_equal(VALUE self, VALUE tree2);
-
-#if defined(__cplusplus)
-}
-#endif
+*/
 
 #endif // _NATIVE_BTREE_

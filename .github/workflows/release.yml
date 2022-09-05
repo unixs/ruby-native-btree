@@ -1,0 +1,15 @@
+name: Ruby
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  runs-on: ubuntu-latest
+  call-main-workflow:
+    uses: ./.github/workflows/main.yml
+
+  release:
+    - name: Release
+      run: echo release

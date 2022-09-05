@@ -1,30 +1,29 @@
 #include <native_btree.h>
 
-VALUE btree_class;
-VALUE btree_module;
+VALUE rbtree_class;
+VALUE rbtree_module;
+
 
 void
 Init_native_btree()
 {
-  btree_module = rb_define_module("NativeBTree");
-  btree_class = rb_define_class_under(btree_module, "BTree", rb_cObject);
+  rbtree_module = rb_define_module(NATIVE_BTREE_MODULE);
+  rbtree_class = rb_define_class_under(rbtree_module, NATIVE_BTREE_CLASS, rb_cObject);
 
-  rb_define_singleton_method(btree_class, "new", btree_new, 0);
-  // rb_define_method(btree_class, "initialize", btree_init, 0);
-  rb_define_method(btree_class, "size", btree_size, 0);
-  rb_define_method(btree_class, "height", btree_height, 0);
-  rb_define_method(btree_class, "set", btree_set, 2);
-  rb_define_alias(btree_class, "[]=", "set");
-  rb_define_method(btree_class, "get", btree_get, 1);
-  rb_define_alias(btree_class, "[]", "get");
-  rb_define_method(btree_class, "delete", btree_delete, 1);
-  rb_define_method(btree_class, "clear", btree_clear, 0);
-  rb_define_method(btree_class, "has", btree_has, 1);
-  rb_define_method(btree_class, "each", btree_each, 0);
-  rb_define_method(btree_class, "<=>", btree_cmp, 1);
-  rb_define_method(btree_class, "eql?", btree_equal, 1);
-  rb_define_alias(btree_class, "==", "eql?");
-  // TODO: to_ary
-  // TODO: to_hash
+  rb_define_alloc_func(rbtree_class, rbtree_alloc);
+  rb_define_method(rbtree_class, "initialize", rbtree_initialize, 0);
+
+  rb_define_method(rbtree_class, "[]=", rbtree_set, 2);
+  rb_define_alias(rbtree_class, "set", "[]=");
+
+  rb_define_method(rbtree_class, "[]", rbtree_get, 1);
+  rb_define_alias(rbtree_class, "get", "[]");
+
+  rb_define_method(rbtree_class, "delete", rbtree_delete, 1);
+
+  rb_define_method(rbtree_class, "each", rbtree_each, 0);
+
+  rb_define_method(rbtree_class, "size", rbtree_size, 0);
+  rb_define_method(rbtree_class, "height", rbtree_height, 0);
 }
 

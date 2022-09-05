@@ -1,3 +1,3 @@
-module NativeBTree
-  VERSION = "0.1.0.alpha1".freeze
+module NativeBtree
+  VERSION = "0.1.0.alpha2".freeze
 end
