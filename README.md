@@ -1,26 +1,28 @@
-# Native Balanced binary tree for Ruby
+# GLib Balanced binary tree (GTree) bindings for Ruby
 
-Ruby bindings to [GTree - balanced binary tree from GLib library](https://developer.gnome.org/glib/stable/glib-Balanced-Binary-Trees.html) .
+[![Ruby](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml/badge.svg)](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml)
 
-In most cases it is behave same as Hash, but keys will be ordered by passed comparator.
+[GTree - balanced binary tree from GLib library](https://docs.gtk.org/glib/struct.Tree.html)
 
-Basic usage:
+In most cases it will behave same as Hash, but keys will be ordered by passed comparator.
+
+## Basic usage:
 
 ```ruby
 require 'native_btree'
 
 # Pass comparator for keys as block
-tree = NativeBTree::BTree.new { |a, b|  a <=> b }
+tree = NativeBtree::Btree.new { |a, b|  a - b }
 
-tree[:a1] = '111'
-tree[:c3] = '333'
-tree[:b2] = '222'
+tree[1] = '111'
+tree[3] = '333'
+tree[2] = '222'
 
 tree.each { |k, v| puts "#{k} => #{v}" }
 
-# a1 => 111
-# b2 => 222
-# c3 => 333
+# 1 => 111
+# 2 => 222
+# 3 => 333
 # nil
 
 tree.size
@@ -30,5 +32,15 @@ tree.height
 # 2
 ```
 
-Trees is may comparable by `==` or `.eql?` operator.
-Trees will be equal if all keys and all value is equal in both.
+## API ref
+
+You must provide your own comparator for keys in `new` class method block.
+
+### Methods
+
+* `[]= (alias: set)`
+* `[] (alias: get)`
+* `delete`
+* `size`
+* `height`
+* `each`
