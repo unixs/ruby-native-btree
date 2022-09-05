@@ -1,6 +1,7 @@
 # GLib Balanced binary tree (GTree) bindings for Ruby
 
 [![Ruby](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml/badge.svg)](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml)
+[![Gem Version](https://badge.fury.io/rb/native_btree.svg)](https://badge.fury.io/rb/native_btree)
 
 [GTree - balanced binary tree from GLib library](https://docs.gtk.org/glib/struct.Tree.html)
 
