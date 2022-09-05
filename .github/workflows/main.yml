@@ -29,9 +29,11 @@ jobs:
 
     - name: Test
       run: |
-        bundle exec rake cmake:build
+        rake cmake:build
         bundle exec rake spec
 
     - name: Build & install
       if: github.ref == 'refs/heads/master'
-      run: bundle exec rake build
+      run: |
+        rake install
+        ruby -e 'require "native_btree"'
