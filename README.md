@@ -7,7 +7,25 @@
 
 In most cases it will behave same as Hash, but keys will be ordered by passed comparator.
 
-## Basic usage:
+## Requirements
+
+* **CMake** build tool version **>= 3.14.0**
+* `pkg-config` tool
+* **GLib** library
+  * On Ubuntu run:
+  ```bash
+  sudo apt-get install pkg-config cmake libglib2.0-dev
+  ```
+  * On MacOS run:
+  ```
+  brew install pkg-config cmake glib
+  ```
+  * On FreeBSD use pkg or ports.
+  * On windows use Google. I don't really know how it can work at this moment... But i think it's possible
+
+**Check CMake tool version!**
+
+## Basic usage
 
 ```ruby
 require 'native_btree'
