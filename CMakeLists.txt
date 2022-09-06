@@ -5,6 +5,8 @@ project(ruby-native-btree
 	VERSION 0.1.0
   	HOMEPAGE_URL https://github.com/unixs/ruby-native-btree)
 
+include(CheckSymbolExists)
+
 set(REQUIRED_RUBY_VERSION 2.6.0)
 
 set(CMAKE_C_STANDARD 11)

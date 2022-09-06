@@ -193,7 +193,7 @@ RSpec.describe NativeBtree do
 
       describe "#to_h" do
         xit "respond to" do
-          expect(described_cless.respond_to?(:to_h)).to be true
+          expect(tree).to respond_to(:to_h)
         end
       end
     end

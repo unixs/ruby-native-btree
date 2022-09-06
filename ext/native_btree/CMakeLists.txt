@@ -7,6 +7,14 @@ pkg_check_modules(GLIB2 REQUIRED glib-2.0)
 
 include_directories(include ${GLIB2_INCLUDE_DIRS})
 
+list(APPEND CMAKE_REQUIRED_LIBRARIES ${GLIB2_LDFLAGS})
+list(APPEND CMAKE_REQUIRED_INCLUDES ${GLIB2_INCLUDE_DIRS})
+check_symbol_exists(g_tree_remove_all "glib.h" HAVE_GTREE_REMOVE_ALL)
+
+if(HAVE_GTREE_REMOVE_ALL)
+	add_compile_definitions(HAVE_GTREE_REMOVE_ALL)
+endif()
+
 add_library(rbtree_type OBJECT rbtree_type.c)
 add_library(constructor OBJECT constructor.c)
 add_library(instance OBJECT instance.c)

@@ -1,5 +1,18 @@
 #include <instance.h>
 
+#ifndef HAVE_GTREE_REMOVE_ALL
+
+static gboolean
+rbtree_remove_node(gpointer key, gpointer val, gpointer data) {
+  RBTree *rbtree = (RBTree *) data;
+
+  g_tree_remove(rbtree->gtree, key);
+
+  return FALSE;
+}
+
+#endif
+
 
 VALUE
 rbtree_set(VALUE self, VALUE key, VALUE value)
@@ -88,7 +101,11 @@ rbtree_clear(VALUE self)
 {
   EXTRACT_RBTREE_SELF(rbtree);
 
-  g_tree_remove_all(rbtree->gtree);
+  #ifdef HAVE_GTREE_REMOVE_ALL
+    g_tree_remove_all(rbtree->gtree);
+  #else
+    g_tree_foreach(rbtree->gtree, rbtree_remove_node, (gpointer) rbtree);
+  #endif
 
   return self;
 }
