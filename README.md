@@ -65,3 +65,7 @@ You must provide your own comparator for keys in `new` class method block.
 * `size`
 * `height`
 * `each`
+* `include?`
+* `clear`
+* `to_h`
+* `to_a`
