@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
 
 project(ruby-native-btree
 	LANGUAGES C
-	VERSION 0.1.0
+	VERSION 0.2.0
   	HOMEPAGE_URL https://github.com/unixs/ruby-native-btree)
 
 include(CheckSymbolExists)
