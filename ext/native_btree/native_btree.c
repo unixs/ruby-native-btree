@@ -23,4 +23,6 @@ Init_native_btree()
   rb_define_method(rbtree_class, "height", rbtree_height, 0);
   rb_define_method(rbtree_class, "clear", rbtree_clear, 0);
   rb_define_method(rbtree_class, "include?", rbtree_is_include, 1);
+  rb_define_method(rbtree_class, "to_h", rbtree_to_h, 0);
+  rb_define_method(rbtree_class, "to_a", rbtree_to_a, 0);
 }

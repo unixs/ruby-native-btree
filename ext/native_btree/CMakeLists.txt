@@ -20,6 +20,7 @@ add_library(constructor OBJECT constructor.c)
 add_library(instance OBJECT instance.c)
 add_library(comparator OBJECT comparator.c)
 add_library(iterators OBJECT iterators.c)
+add_library(conversion OBJECT conversion.c)
 
 add_library(${EXT_NAME}
 	SHARED
@@ -27,6 +28,7 @@ add_library(${EXT_NAME}
 
 target_link_libraries(${EXT_NAME}
 	PRIVATE
+	conversion
 	iterators
 	rbtree_type
 	constructor
