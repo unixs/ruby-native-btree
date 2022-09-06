@@ -15,15 +15,12 @@ Init_native_btree()
 
   rb_define_method(rbtree_class, "[]=", rbtree_set, 2);
   rb_define_alias(rbtree_class, "set", "[]=");
-
   rb_define_method(rbtree_class, "[]", rbtree_get, 1);
   rb_define_alias(rbtree_class, "get", "[]");
-
   rb_define_method(rbtree_class, "delete", rbtree_delete, 1);
-
   rb_define_method(rbtree_class, "each", rbtree_each, 0);
-
   rb_define_method(rbtree_class, "size", rbtree_size, 0);
   rb_define_method(rbtree_class, "height", rbtree_height, 0);
+  rb_define_method(rbtree_class, "clear", rbtree_clear, 0);
+  rb_define_method(rbtree_class, "include?", rbtree_is_include, 1);
 }
-

@@ -2,6 +2,8 @@
 
 [![Ruby](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml/badge.svg)](https://github.com/unixs/ruby-native-btree/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/native_btree.svg)](https://badge.fury.io/rb/native_btree)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+
 
 [GTree - balanced binary tree from GLib library](https://docs.gtk.org/glib/struct.Tree.html)
 

@@ -81,3 +81,29 @@ rbtree_size(VALUE self)
 
   return result;
 }
+
+
+VALUE
+rbtree_clear(VALUE self)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+  g_tree_remove_all(rbtree->gtree);
+
+  return self;
+}
+
+
+VALUE
+rbtree_is_include(VALUE self, VALUE key)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+  gpointer exists = g_tree_lookup(rbtree->gtree, (gconstpointer) key);
+
+  if (exists == NULL) {
+    return Qfalse;
+  }
+
+  return Qtrue;
+}

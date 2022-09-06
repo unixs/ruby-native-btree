@@ -14,3 +14,9 @@ rbtree_size(VALUE self);
 
 VALUE
 rbtree_height(VALUE self);
+
+VALUE
+rbtree_clear(VALUE self);
+
+VALUE
+rbtree_is_include(VALUE self, VALUE key);

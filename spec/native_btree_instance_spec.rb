@@ -137,8 +137,22 @@ RSpec.describe NativeBtree do
     end
 
     describe "#clear method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:clear)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:clear)
+      end
+
+      it 'clear tree' do
+        tree[1] = 11
+        tree[2] = 22
+        tree[3] = 33
+        expect(tree.size).to be 3
+        tree.clear()
+        expect(tree.size).to be 0
+      end
+
+      it 'return self' do
+        tree[1] = 11
+        expect(tree.clear()).to be tree
       end
     end
 
@@ -155,8 +169,18 @@ RSpec.describe NativeBtree do
     end
 
     describe "#include? method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:include?)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:include?)
+      end
+
+      it 'return true is key exists' do
+        tree[3] = 33
+        expect(tree.include?(3)).to be true
+      end
+
+      it 'return false if key not exists' do
+        tree[3] = 33
+        expect(tree.include?(4)).to be false
       end
     end
 
