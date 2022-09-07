@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5)
 
 project(ruby-native-btree
 	LANGUAGES C
-	VERSION 0.2.0
-  	HOMEPAGE_URL https://github.com/unixs/ruby-native-btree)
+	VERSION 0.2.0)
 
 include(CheckSymbolExists)
 
@@ -37,9 +36,17 @@ find_package(PkgConfig REQUIRED)
 
 # Find Ruby
 find_package(Ruby ${REQUIRED_RUBY_VERSION} REQUIRED)
-include_directories(${Ruby_INCLUDE_DIRS})
-link_libraries(${Ruby_LIBRARIES})
-message("Ruby_INCLUDE_DIRS: ${Ruby_INCLUDE_DIRS}")
+
+if(CMAKE_VERSION VERSION_GREATER "3.17.100")
+	include_directories(${Ruby_INCLUDE_DIRS})
+	link_libraries(${Ruby_LIBRARIES})
+	message(STATUS "Ruby_INCLUDE_DIRS: ${Ruby_INCLUDE_DIRS}")
+else()
+	message(WARNING "Old CMake. Legacy FindRuby macro is used.")
+	include_directories(${RUBY_INCLUDE_DIRS})
+	link_libraries(${RUBY_LIBRARIES})
+	message(STATUS "RUBY_INCLUDE_DIRS: ${RUBY_INCLUDE_DIRS}")
+endif()
 
 message(STATUS "Find Ruby deps.")
 

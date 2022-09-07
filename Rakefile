@@ -28,7 +28,8 @@ namespace :cmake do
 
   desc "Configure ext CMake project"
   task :configure do
-    sh "cmake -S . -B #{BUILD_DIR}"
+    sh "mkdir #{BUILD_DIR} || true"
+    sh "cd #{BUILD_DIR} && cmake .."
   end
 
   desc "Build ext CMake project"

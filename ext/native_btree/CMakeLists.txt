@@ -15,6 +15,11 @@ if(HAVE_GTREE_REMOVE_ALL)
 	add_compile_definitions(HAVE_GTREE_REMOVE_ALL)
 endif()
 
+
+add_library(${EXT_NAME}
+	SHARED
+	native_btree.c)
+
 add_library(rbtree_type OBJECT rbtree_type.c)
 add_library(constructor OBJECT constructor.c)
 add_library(instance OBJECT instance.c)
@@ -22,17 +27,17 @@ add_library(comparator OBJECT comparator.c)
 add_library(iterators OBJECT iterators.c)
 add_library(conversion OBJECT conversion.c)
 
-add_library(${EXT_NAME}
-	SHARED
-	native_btree.c)
+add_library(native_btree_interface
+	STATIC
+	$<TARGET_OBJECTS:conversion>
+	$<TARGET_OBJECTS:iterators>
+	$<TARGET_OBJECTS:comparator>
+	$<TARGET_OBJECTS:instance>
+	$<TARGET_OBJECTS:constructor>
+	$<TARGET_OBJECTS:rbtree_type>)
 
 target_link_libraries(${EXT_NAME}
 	PRIVATE
-	conversion
-	iterators
-	rbtree_type
-	constructor
-	instance
-	comparator
+	native_btree_interface
 	${GLIB2_LDFLAGS})
-	#set_target_properties(${EXT_NAME} PROPERTIES BUNDLE TRUE)
+
