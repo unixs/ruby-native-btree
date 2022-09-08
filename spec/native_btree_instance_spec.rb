@@ -157,8 +157,8 @@ RSpec.describe NativeBtree do
     end
 
     describe "#filter method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:filter)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:filter)
       end
     end
 
@@ -181,90 +181,6 @@ RSpec.describe NativeBtree do
       it 'return false if key not exists' do
         tree[3] = 33
         expect(tree.include?(4)).to be false
-      end
-    end
-
-    describe "to_ methods" do
-      describe "#to_a" do
-        it "respond to" do
-          expect(tree).to respond_to(:to_a)
-        end
-
-        it 'return Array' do
-          expect(tree.to_a).to be_kind_of(Array)
-        end
-
-        it 'has similar items' do
-          tree[2] = 22
-          tree[1] = 11
-          expect(tree.to_a()[0][1]).to be 11
-        end
-      end
-
-      describe "#to_h" do
-        it "respond to" do
-          expect(tree).to respond_to(:to_h)
-        end
-
-        it "return Hash" do
-          expect(tree.to_h).to be_kind_of(Hash)
-        end
-
-        it 'has similar keys' do
-          tree[2] = 22
-          tree[1] = 11
-          expect(tree.to_h()[1]).to be 11
-        end
-      end
-    end
-
-    describe "#each method" do
-      it "respond to" do
-        expect(tree).to respond_to(:each)
-      end
-
-      it 'yield in to block value first' do
-        tree[2] = 22
-
-        value = nil
-        tree.each { |v| value = v }
-
-        expect(value).to be 22
-      end
-
-      it 'yield in to block key second' do
-        tree[2] = 22
-
-        key = nil
-        tree.each { |_v, k| key = k }
-
-        expect(key).to be 2
-      end
-
-      it 'yield ordered keys' do
-        tree[16] = 16
-        tree[0] = 0
-        tree[5] = 5
-        tree[-4] = -4
-        tree[7] = 7
-
-        check = [-4, 0, 5, 7, 16]
-        result = []
-        tree.each { |value| result << value }
-
-        expect(result).to eq(check)
-      end
-    end
-
-    describe "#each_key method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:each_key)).to be true
-      end
-    end
-
-    describe "#each_value method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:each_value)).to be true
       end
     end
 
