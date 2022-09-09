@@ -19,6 +19,8 @@ Init_native_btree()
     rb_cObject
   );
 
+  // rb_include_module(native_btree_class, rb_mEnumerable);
+
   rb_define_alloc_func(native_btree_class, rbtree_alloc);
   rb_define_method(native_btree_class, "initialize", rbtree_initialize, 0);
 
@@ -35,5 +37,7 @@ Init_native_btree()
   rb_define_method(native_btree_class, "to_h", rbtree_to_h, 0);
   rb_define_method(native_btree_class, "to_a", rbtree_to_a, 0);
   rb_define_method(native_btree_class, "filter", rbtree_filter, 0);
+  rb_define_alias(native_btree_class, "select", "filter");
   rb_define_method(native_btree_class, "filter!", rbtree_filter_bang, 0);
+  rb_define_alias(native_btree_class, "select!", "filter!");
 }

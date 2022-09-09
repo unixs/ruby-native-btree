@@ -104,14 +104,14 @@ RSpec.describe NativeBtree do
     end
 
     describe "#select method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:select)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:select)
       end
     end
 
     describe "#select! method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:select!)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:select!)
       end
     end
   end
