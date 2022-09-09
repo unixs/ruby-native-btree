@@ -26,6 +26,7 @@ add_library(instance OBJECT instance.c)
 add_library(comparator OBJECT comparator.c)
 add_library(iterators OBJECT iterators.c)
 add_library(conversion OBJECT conversion.c)
+add_library(search OBJECT search.c)
 
 add_library(native_btree_interface
 	STATIC
@@ -34,7 +35,8 @@ add_library(native_btree_interface
 	$<TARGET_OBJECTS:comparator>
 	$<TARGET_OBJECTS:instance>
 	$<TARGET_OBJECTS:constructor>
-	$<TARGET_OBJECTS:rbtree_type>)
+	$<TARGET_OBJECTS:rbtree_type>
+	$<TARGET_OBJECTS:search>)
 
 target_link_libraries(${EXT_NAME}
 	PRIVATE

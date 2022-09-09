@@ -5,5 +5,6 @@
 #include <instance.h>
 #include <iterators.h>
 #include <conversion.h>
+#include <search.h>
 
 #endif // _NATIVE_BTREE_

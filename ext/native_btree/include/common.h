@@ -11,7 +11,7 @@
 
 #define EXTRACT_RBTREE(from, to)                                               \
   RBTree *to;                                                                  \
-  TypedData_Get_Struct(from, RBTree, &rbtree_type, rbtree)
+  TypedData_Get_Struct(from, RBTree, &rbtree_type, to)
 
 #define EXTRACT_RBTREE_SELF(to) EXTRACT_RBTREE(self, to)
 

@@ -2,7 +2,7 @@
 
 require_relative "../lib/native_btree/native_btree"
 
-tree = NativeBtree::Btree.new
+tree = NativeBtree::Btree.new { |a, b|  a - b }
 
 GC.start
 
@@ -17,7 +17,7 @@ GC.start
 block = ->(key) { "#{key} is not found" }
 puts tree.delete(77, &block)
 
-tree = null
+tree2 = tree.filter() { true }
 
 GC.start
 

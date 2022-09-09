@@ -156,18 +156,6 @@ RSpec.describe NativeBtree do
       end
     end
 
-    describe "#filter method" do
-      it "respond to" do
-        expect(tree).to respond_to(:filter)
-      end
-    end
-
-    describe "#filter! method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:filter!)).to be true
-      end
-    end
-
     describe "#include? method" do
       it "respond to" do
         expect(tree).to respond_to(:include?)
@@ -181,18 +169,6 @@ RSpec.describe NativeBtree do
       it 'return false if key not exists' do
         tree[3] = 33
         expect(tree.include?(4)).to be false
-      end
-    end
-
-    describe "#select method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:select)).to be true
-      end
-    end
-
-    describe "#select! method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:select!)).to be true
       end
     end
   end
