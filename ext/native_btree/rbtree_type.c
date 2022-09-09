@@ -82,7 +82,7 @@ rbtree_size(gconstpointer data)
 
 
 const rb_data_type_t rbtree_type = {
-  .wrap_struct_name = NATIVE_TYPE_NAME,
+  .wrap_struct_name = RBTREE_NATIVE_TYPE_NAME,
   .function = {
     .dmark = rbtree_mark,
     .dfree = rbtree_free,

@@ -1,4 +1,3 @@
-#include <constructor.h>
 #include <comparator.h>
 #include <rbtree_type.h>
 

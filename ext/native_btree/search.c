@@ -1,6 +1,6 @@
-#include <search.h>
+#include <iterators.h>
 
-VALUE rbtree_class;
+VALUE native_btree_class;
 
 static gboolean
 filter_callback(gpointer a, gpointer b, gpointer data)
@@ -53,7 +53,7 @@ rbtree_filter(VALUE self)
   VALUE block = rb_block_proc();
 
   VALUE new_tree = rb_funcall_with_block(
-    rbtree_class,
+    native_btree_class,
     rb_intern("new"),
     0,
     NULL,

@@ -1,4 +1,5 @@
-#include <instance.h>
+#include <common.h>
+
 
 #ifndef HAVE_GTREE_REMOVE_ALL
 

@@ -3,7 +3,7 @@
 
 #include <common.h>
 
-#define NATIVE_TYPE_NAME "native_btree"
+#define RBTREE_NATIVE_TYPE_NAME "native_btree"
 
 extern const rb_data_type_t rbtree_type;
 
