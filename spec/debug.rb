@@ -17,7 +17,9 @@ GC.start
 block = ->(key) { "#{key} is not found" }
 puts tree.delete(77, &block)
 
-tree2 = tree.filter() { true }
+tree2 = tree.filter!() { true }
+
+puts tree.to_h
 
 GC.start
 

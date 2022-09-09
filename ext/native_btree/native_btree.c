@@ -26,4 +26,5 @@ Init_native_btree()
   rb_define_method(rbtree_class, "to_h", rbtree_to_h, 0);
   rb_define_method(rbtree_class, "to_a", rbtree_to_a, 0);
   rb_define_method(rbtree_class, "filter", rbtree_filter, 0);
+  rb_define_method(rbtree_class, "filter!", rbtree_filter_bang, 0);
 }
