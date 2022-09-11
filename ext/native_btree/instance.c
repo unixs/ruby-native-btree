@@ -1,7 +1,7 @@
 #include <common.h>
 
 
-#ifndef HAVE_GTREE_REMOVE_ALL
+#ifndef HAS_GTREE_REMOVE_ALL
 
 static gboolean
 rbtree_remove_node(gpointer key, gpointer val, gpointer data) {
@@ -102,7 +102,7 @@ rbtree_clear(VALUE self)
 {
   EXTRACT_RBTREE_SELF(rbtree);
 
-  #ifdef HAVE_GTREE_REMOVE_ALL
+  #ifdef HAS_GTREE_REMOVE_ALL
     g_tree_remove_all(rbtree->gtree);
   #else
     g_tree_foreach(rbtree->gtree, rbtree_remove_node, (gpointer) rbtree);

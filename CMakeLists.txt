@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(ruby-native-btree
 	LANGUAGES C
-	VERSION 0.2.1)
+	VERSION 0.3.0)
 
 include(CheckSymbolExists)
 
@@ -12,8 +12,8 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(CMAKE_C_FLAGS_DEBUG " -O0 -ggdb3 -Wall -Wextra -Wpedantic -Wno-unused-parameter")
-set(CMAKE_C_FLAGS_RELEASE "-O3")
+set(CMAKE_C_FLAGS_DEBUG " -O0 -ggdb3 -Wall -Wextra -Wno-unused-parameter")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -fomit-frame-pointer")
 set(CMAKE_C_FLAGS "-pipe -march=native")
 
 # Force -fPIC

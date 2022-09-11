@@ -1,18 +1,46 @@
 #include <comparator.h>
 #include <rbtree_type.h>
+#include <stdbool.h>
 
-VALUE
-rbtree_initialize(VALUE self)
+inline static void
+init_rbtree(RBTree *rbtree, gushort flags)
 {
-  EXTRACT_RBTREE_SELF(rbtree);
+  bool flag_int_comparator = flags & RBTREE_FLAG_INT_COMPARATOR;
+  VALUE comparator = Qnil;
+  // NOTE: Possible segfault
+  GCompareDataFunc native_comparator = NULL;
+
+  if (flag_int_comparator) {
+    native_comparator = rbtree_int_comparator;
+  }
+  else {
+    rb_need_block();
+    comparator = rb_block_proc();
+    native_comparator = rbtree_native_comparator;
+  }
 
   rbtree->gtree = g_tree_new_with_data(
-    rbtree_native_comparator,
+    native_comparator,
     rbtree
   );
+  rbtree->comparator = comparator;
+  rbtree->flags = flags;
+}
 
-  rb_need_block();
-  rbtree->comparator = rb_block_proc();
+VALUE
+rbtree_initialize(int argc, VALUE* argv, VALUE self)
+{
+  rb_check_arity(argc, 0, 1);
+
+  EXTRACT_RBTREE_SELF(rbtree);
+
+  gushort flags = 0;
+
+  if (argc > 0) {
+    flags = NUM2USHORT(argv[0]);
+  }
+
+  init_rbtree((RBTree *) rbtree, flags);
 
   return self;
 }

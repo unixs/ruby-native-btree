@@ -11,3 +11,12 @@ rbtree_native_comparator(gconstpointer a, gconstpointer b, gpointer data)
 
   return compare_result;
 }
+
+gint
+rbtree_int_comparator(gconstpointer ra, gconstpointer rb, gpointer data)
+{
+  gint a = NUM2INT((VALUE) ra);
+  gint b = NUM2INT((VALUE) rb);
+
+  return a - b;
+}

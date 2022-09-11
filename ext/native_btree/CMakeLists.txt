@@ -9,12 +9,22 @@ include_directories(include ${GLIB2_INCLUDE_DIRS})
 
 list(APPEND CMAKE_REQUIRED_LIBRARIES ${GLIB2_LDFLAGS})
 list(APPEND CMAKE_REQUIRED_INCLUDES ${GLIB2_INCLUDE_DIRS})
-check_symbol_exists(g_tree_remove_all "glib.h" HAVE_GTREE_REMOVE_ALL)
+check_symbol_exists(g_tree_remove_all "glib.h" HAS_GTREE_REMOVE_ALL)
+check_symbol_exists(g_tree_lookup_node "glib.h" HAS_GTREE_NODE)
 
-if(HAVE_GTREE_REMOVE_ALL)
-	add_compile_definitions(HAVE_GTREE_REMOVE_ALL)
+if(HAS_GTREE_REMOVE_ALL)
+	add_compile_definitions(HAS_GTREE_REMOVE_ALL)
 endif()
 
+if(HAS_GTREE_NODE)
+	add_compile_definitions(HAS_GTREE_NODE)
+	add_subdirectory("glib2_68")
+else()
+	message(WARNING
+		"Available GLib is not support direct node access.
+		Version < 2.68.
+		Additional iterators will not compile.")
+endif()
 
 add_library(${EXT_NAME}
 	SHARED
@@ -27,19 +37,29 @@ add_library(comparator OBJECT comparator.c)
 add_library(iterators OBJECT iterators.c)
 add_library(conversion OBJECT conversion.c)
 add_library(search OBJECT search.c)
+add_library(glib_module OBJECT glib_module.c)
 
-add_library(native_btree_interface
-	STATIC
+
+set(LIB_OBJECTS)
+list(APPEND LIB_OBJECTS
 	$<TARGET_OBJECTS:conversion>
 	$<TARGET_OBJECTS:iterators>
 	$<TARGET_OBJECTS:comparator>
 	$<TARGET_OBJECTS:instance>
 	$<TARGET_OBJECTS:constructor>
 	$<TARGET_OBJECTS:rbtree_type>
-	$<TARGET_OBJECTS:search>)
+	$<TARGET_OBJECTS:search>
+	$<TARGET_OBJECTS:glib_module>)
+
+if(HAS_GTREE_NODE)
+	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:additional_iterators>)
+endif()
+
+add_library(native_btree_interface
+	STATIC
+	${LIB_OBJECTS})
 
 target_link_libraries(${EXT_NAME}
 	PRIVATE
 	native_btree_interface
 	${GLIB2_LDFLAGS})
-

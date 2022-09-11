@@ -1,7 +1,9 @@
 #include <common.h>
 
 typedef struct {
-  VALUE block;
-  RBTree *tree;
+  const VALUE block;
+  const RBTree *tree;
   gconstpointer something;
 } RBTreeSearchData;
+
+typedef GTreeNode *(RBTreeStepFunction) (GTreeNode *node);

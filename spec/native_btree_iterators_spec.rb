@@ -48,14 +48,42 @@ RSpec.describe NativeBtree do
     end
 
     describe "#each_key method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:each_key)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:each_key)
+      end
+
+      it 'yield ordered keys' do
+        tree[16] = 160
+        tree[0] = 0
+        tree[5] = 50
+        tree[-4] = -40
+        tree[7] = 70
+
+        check = [-4, 0, 5, 7, 16]
+        result = []
+        tree.each_key { |key| result << key }
+
+        expect(result).to eq(check)
       end
     end
 
     describe "#each_value method" do
-      xit "respond to" do
-        expect(described_cless.respond_to?(:each_value)).to be true
+      it "respond to" do
+        expect(tree).to respond_to(:each_value)
+      end
+
+      it 'yield values by ordered keys' do
+        tree[16] = 160
+        tree[0] = 0
+        tree[5] = 50
+        tree[-4] = -40
+        tree[7] = 70
+
+        check = [-40, 0, 50, 70, 160]
+        result = []
+        tree.each_value { |value| result << value }
+
+        expect(result).to eq(check)
       end
     end
   end

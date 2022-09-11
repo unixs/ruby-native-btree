@@ -2,7 +2,7 @@
 
 require_relative "../lib/native_btree/native_btree"
 
-tree = NativeBtree::Btree.new { |a, b|  a - b }
+tree = NativeBtree::Btree.new() {|a, b| a - b }
 
 GC.start
 
@@ -24,9 +24,18 @@ puts tree.to_h
 pr = tree.to_proc
 
 puts pr
-puts pr.call(10)
-puts pr.call(16)
 
+
+tree.clear
+tree[1] = 15
+tree[2] = 22
+tree[3] = 33
+tree[4] = 44
+tree[5] = 55
+tree[6] = 66
+tree[7] = 77
+
+puts tree.select_after(4).to_h
 
 GC.start
 

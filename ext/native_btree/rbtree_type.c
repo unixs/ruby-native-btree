@@ -8,7 +8,10 @@ rbtree_type_free(gpointer data)
 {
   RBTree *rbtree = (RBTree *) data;
 
-  g_tree_destroy(rbtree->gtree);
+  if (rbtree->gtree) {
+    g_tree_destroy(rbtree->gtree);
+  }
+
   g_free(data);
 }
 
@@ -26,9 +29,11 @@ rbtree_mark_callback(gpointer key, gpointer value, gpointer data)
 static void
 rbtree_type_mark(gpointer data)
 {
-  RBTree *rbtree = (RBTree *)data;
+  RBTree *rbtree = (RBTree *) data;
 
-  rb_gc_mark(rbtree->comparator);
+  if (!NIL_P(rbtree->comparator)) {
+    rb_gc_mark(rbtree->comparator);
+  }
 
   g_tree_foreach(rbtree->gtree, rbtree_mark_callback, NULL);
 }
@@ -98,5 +103,26 @@ rbtree_alloc(VALUE self)
 {
   RBTree *rbtree = g_new(RBTree, 1);
 
+  rbtree->gtree = NULL;
+  rbtree->comparator = Qnil;
+  rbtree->flags = 0;
+
   return TypedData_Wrap_Struct(self, &rbtree_type, rbtree);
+}
+
+
+VALUE
+rbtree_clone_wrap(const RBTree *orig)
+{
+  const VALUE rflags = USHORT2NUM(orig->flags);
+
+  VALUE new_tree = rb_funcall_with_block(
+    native_btree_class,
+    rb_intern("new"),
+    orig->flags ? 1 : 0,
+    orig->flags ? &rflags : NULL,
+    orig->comparator
+  );
+
+  return new_tree;
 }

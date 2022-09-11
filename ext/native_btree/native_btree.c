@@ -1,13 +1,14 @@
 #include <native_btree.h>
 #include <rbtree_type.h>
+#include <glib_module.h>
 
 #define NATIVE_BTREE_MODULE "NativeBtree"
 #define NATIVE_BTREE_CLASS "Btree"
+#define NATIVE_BTREE_CONST_INT_COMPARATOR "INT_COMPARATOR"
 
 
 VALUE native_btree_class;
 VALUE native_btree_module;
-
 
 void
 Init_native_btree()
@@ -19,10 +20,20 @@ Init_native_btree()
     rb_cObject
   );
 
+  VALUE int_comparator = USHORT2NUM(RBTREE_FLAG_INT_COMPARATOR);
+  OBJ_FREEZE(int_comparator);
+  rb_define_const(
+    native_btree_class,
+    NATIVE_BTREE_CONST_INT_COMPARATOR,
+    int_comparator
+  );
+
+  rbtree_attach_module_glib();
+
   // rb_include_module(native_btree_class, rb_mEnumerable);
 
   rb_define_alloc_func(native_btree_class, rbtree_alloc);
-  rb_define_method(native_btree_class, "initialize", rbtree_initialize, 0);
+  rb_define_method(native_btree_class, "initialize", rbtree_initialize, -1);
 
   rb_define_method(native_btree_class, "[]=", rbtree_set, 2);
   rb_define_alias(native_btree_class, "set", "[]=");
@@ -30,6 +41,8 @@ Init_native_btree()
   rb_define_alias(native_btree_class, "get", "[]");
   rb_define_method(native_btree_class, "delete", rbtree_delete, 1);
   rb_define_method(native_btree_class, "each", rbtree_each, 0);
+  rb_define_method(native_btree_class, "each_key", rbtree_each_key, 0);
+  rb_define_method(native_btree_class, "each_value", rbtree_each_value, 0);
   rb_define_method(native_btree_class, "size", rbtree_size, 0);
   rb_define_method(native_btree_class, "height", rbtree_height, 0);
   rb_define_method(native_btree_class, "clear", rbtree_clear, 0);
@@ -42,4 +55,9 @@ Init_native_btree()
   rb_define_method(native_btree_class, "filter!", rbtree_filter_bang, 0);
   rb_define_alias(native_btree_class, "select!", "filter!");
   rb_define_method(native_btree_class, "empty?", rbtree_is_empty, 0);
+
+#ifdef HAS_GTREE_NODE
+  rb_define_method(native_btree_class, "select_before", rbtree_select_before, 1);
+  rb_define_method(native_btree_class, "select_after", rbtree_select_after, 1);
+#endif
 }

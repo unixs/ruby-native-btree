@@ -19,6 +19,22 @@ RSpec.describe NativeBtree do
       it "raise error if block is not given" do
         expect { described_class.new() }.to raise_error(LocalJumpError)
       end
+
+      it 'return new btree with int comparator' do
+        expect(described_class.new(described_class::INT_COMPARATOR))
+          .to be_kind_of(described_class)
+      end
+
+    end
+
+    describe "constants" do
+      it 'has const INT_COMPARATOR' do
+        expect(described_class.const_defined?(:INT_COMPARATOR)).to be true
+      end
+
+      it 'const INT_COMPARATOR is 1' do
+        expect(described_class::INT_COMPARATOR).to be 128
+      end
     end
   end
 end

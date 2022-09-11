@@ -11,7 +11,7 @@ In most cases it will behave same as Hash, but keys will be ordered by passed co
 
 ## Requirements
 
-* **CMake** build tool version **>= 3.14.0**
+* **CMake** build tool version **>= 3.5.0**, >= 3.14.0 will be cool.
 * `pkg-config` tool
 * **GLib** library
   * On Ubuntu run:
@@ -29,6 +29,7 @@ In most cases it will behave same as Hash, but keys will be ordered by passed co
 
 ## Basic usage
 
+### Example
 ```ruby
 require 'native_btree'
 
@@ -53,19 +54,63 @@ tree.height
 # 2
 ```
 
+### Native int comparator
+Will behave like an array with negative indexes)
+```ruby
+# Pass comparator for keys as block
+tree = NativeBtree::Btree.new(NativeBtree::Btree::INT_COMPARATOR)
+
+tree[-2] = 22
+tree[-1] = 1
+tree[0] = 100
+tree[5] = 55
+
+tree.to_a
+
+#[
+#    [0] [
+#        [0] -2,
+#        [1] 22
+#    ],
+#    [1] [
+#        [0] -1,
+#        [1] 1
+#    ],
+#    [2] [
+#        [0] 0,
+#        [1] 100
+#    ],
+#    [3] [
+#        [0] 5,
+#        [1] 55
+#    ]
+#]
+```
+
 ## API ref
 
 You must provide your own comparator for keys in `new` class method block.
 
-### Methods
+### API methods
+
+In general this class behave same as Hash
+
+Implemented methods:
 
 * `[]= (alias: set)`
 * `[] (alias: get)`
 * `delete`
 * `size`
 * `height`
-* `each`
+* `each` (NB! block is required)
 * `include?`
 * `clear`
 * `to_h`
 * `to_a`
+* `to_proc`
+* `filter` (alias: select)
+* `filter!` (alias: select!)
+* `each_value`
+* `each_key`
+
+You can mix in the `Enumerable` module if additional methods are needed.

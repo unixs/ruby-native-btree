@@ -8,7 +8,7 @@
 #define _NATIVE_BTREE_COMMON_
 
 #define EXTRACT_RBTREE(from, to)                                               \
-  RBTree *to;                                                                  \
+  const RBTree *to;                                                            \
   TypedData_Get_Struct(from, RBTree, &rbtree_type, to)
 
 #define EXTRACT_RBTREE_SELF(to) EXTRACT_RBTREE(self, to)
