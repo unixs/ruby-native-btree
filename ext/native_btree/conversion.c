@@ -1,5 +1,6 @@
 #include <common.h>
 
+
 static gboolean
 rbtree_to_h_callback(gpointer key, gpointer value, gpointer data)
 {
@@ -51,4 +52,27 @@ rbtree_to_a(VALUE self)
   g_tree_foreach(rbtree->gtree, rbtree_to_a_callback, (gpointer) array);
 
   return array;
+}
+
+
+static VALUE
+to_proc_proc(RB_BLOCK_CALL_FUNC_ARGLIST(key, callback_arg))
+{
+  rb_check_arity(argc, 1, 1);
+  EXTRACT_RBTREE(callback_arg, rbtree);
+
+  VALUE value = (VALUE) g_tree_lookup(rbtree->gtree, (gconstpointer) key);
+
+  if (!value) {
+    return Qnil;
+  }
+
+  return value;
+}
+
+
+VALUE
+rbtree_to_proc(VALUE self)
+{
+  return rb_proc_new(to_proc_proc, self);
 }

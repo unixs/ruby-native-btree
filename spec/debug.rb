@@ -21,6 +21,13 @@ tree2 = tree.filter!() { true }
 
 puts tree.to_h
 
+pr = tree.to_proc
+
+puts pr
+puts pr.call(10)
+puts pr.call(16)
+
+
 GC.start
 
 puts "exit 0"

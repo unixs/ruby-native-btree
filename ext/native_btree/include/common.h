@@ -1,6 +1,7 @@
 #include <ruby.h>
 #include <glib.h>
 #include <rbtree_type.h>
+#include <native_btree.h>
 
 
 #ifndef _NATIVE_BTREE_COMMON_

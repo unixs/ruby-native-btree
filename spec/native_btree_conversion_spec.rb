@@ -41,6 +41,30 @@ RSpec.describe NativeBtree do
           expect(tree.to_h()[1]).to be 11
         end
       end
+
+      describe '#to_proc' do
+        it 'respond to' do
+          expect(tree).to respond_to(:to_proc)
+        end
+
+        it 'return Proc' do
+          expect(tree.to_proc).to be_kind_of(Proc)
+        end
+
+        it 'return value for key' do
+          tree[2] = 22
+          tree[1] = 11
+          pr = tree.to_proc
+          expect(pr.call(1)).to be 11
+        end
+
+        it 'return null for non existent key' do
+          tree[2] = 22
+          tree[1] = 11
+          pr = tree.to_proc
+          expect(pr.call(12)).to be_nil
+        end
+      end
     end
   end
 end

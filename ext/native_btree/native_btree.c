@@ -36,6 +36,7 @@ Init_native_btree()
   rb_define_method(native_btree_class, "include?", rbtree_is_include, 1);
   rb_define_method(native_btree_class, "to_h", rbtree_to_h, 0);
   rb_define_method(native_btree_class, "to_a", rbtree_to_a, 0);
+  rb_define_method(native_btree_class, "to_proc", rbtree_to_proc, 0);
   rb_define_method(native_btree_class, "filter", rbtree_filter, 0);
   rb_define_alias(native_btree_class, "select", "filter");
   rb_define_method(native_btree_class, "filter!", rbtree_filter_bang, 0);

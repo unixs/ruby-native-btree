@@ -12,7 +12,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(CMAKE_C_FLAGS_DEBUG " -O0 -ggdb3 -Wall -Wextra -Wpedantic -Wno-unused-parameter -fprofile-arcs -ftest-coverage")
+set(CMAKE_C_FLAGS_DEBUG " -O0 -ggdb3 -Wall -Wextra -Wpedantic -Wno-unused-parameter")
 set(CMAKE_C_FLAGS_RELEASE "-O3")
 set(CMAKE_C_FLAGS "-pipe -march=native")
 

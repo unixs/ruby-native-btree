@@ -4,7 +4,7 @@ const rb_data_type_t rbtree_type;
 
 
 static void
-rbtree_free(gpointer data)
+rbtree_type_free(gpointer data)
 {
   RBTree *rbtree = (RBTree *) data;
 
@@ -24,7 +24,7 @@ rbtree_mark_callback(gpointer key, gpointer value, gpointer data)
 
 
 static void
-rbtree_mark(gpointer data)
+rbtree_type_mark(gpointer data)
 {
   RBTree *rbtree = (RBTree *)data;
 
@@ -61,7 +61,7 @@ struct _GTreeNode
 */
 
 static size_t
-rbtree_size(gconstpointer data)
+rbtree_type_size(gconstpointer data)
 {
   RBTree *rbtree = (RBTree *) data;
 
@@ -84,9 +84,9 @@ rbtree_size(gconstpointer data)
 const rb_data_type_t rbtree_type = {
   .wrap_struct_name = RBTREE_NATIVE_TYPE_NAME,
   .function = {
-    .dmark = rbtree_mark,
-    .dfree = rbtree_free,
-    .dsize = rbtree_size,
+    .dmark = rbtree_type_mark,
+    .dfree = rbtree_type_free,
+    .dsize = rbtree_type_size,
   },
   .data = NULL,
   .flags = RUBY_TYPED_FREE_IMMEDIATELY,

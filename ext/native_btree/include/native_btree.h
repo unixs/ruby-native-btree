@@ -36,6 +36,9 @@ VALUE
 rbtree_to_a(VALUE self);
 
 VALUE
+rbtree_to_proc(VALUE self);
+
+VALUE
 rbtree_filter(VALUE self);
 
 VALUE
