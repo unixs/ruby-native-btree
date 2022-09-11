@@ -125,3 +125,14 @@ rbtree_is_include(VALUE self, VALUE key)
 
   return Qtrue;
 }
+
+
+VALUE
+rbtree_is_empty(VALUE self)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+  gint size = g_tree_nnodes(rbtree->gtree);
+
+  return size > 0 ? Qfalse : Qtrue;
+}

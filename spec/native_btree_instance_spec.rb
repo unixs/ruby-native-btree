@@ -171,5 +171,20 @@ RSpec.describe NativeBtree do
         expect(tree.include?(4)).to be false
       end
     end
+
+    describe "#empty? method" do
+      it 'respond to' do
+        expect(tree).to respond_to(:empty?)
+      end
+
+      it 'return false if nodes exists' do
+        tree[3] = 33
+        expect(tree.empty?).to be false
+      end
+
+      it 'return true if nodes not exists' do
+        expect(tree.empty?).to be true
+      end
+    end
   end
 end

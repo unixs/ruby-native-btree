@@ -41,4 +41,5 @@ Init_native_btree()
   rb_define_alias(native_btree_class, "select", "filter");
   rb_define_method(native_btree_class, "filter!", rbtree_filter_bang, 0);
   rb_define_alias(native_btree_class, "select!", "filter!");
+  rb_define_method(native_btree_class, "empty?", rbtree_is_empty, 0);
 }

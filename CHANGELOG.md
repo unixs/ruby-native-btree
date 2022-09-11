@@ -7,12 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* filter()
-* filter!()
+* delete_if()
 * each_key()
 * each_value()
-* select()
-* select!
 
 ## [0.2.1] - 2022-09-08
 

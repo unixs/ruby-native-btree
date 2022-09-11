@@ -44,4 +44,7 @@ rbtree_filter(VALUE self);
 VALUE
 rbtree_filter_bang(VALUE self);
 
+VALUE
+rbtree_is_empty(VALUE self);
+
 #endif // _NATIVE_BTREE_
