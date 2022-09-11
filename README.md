@@ -11,7 +11,7 @@ In most cases it will behave same as Hash, but keys will be ordered by passed co
 
 ## Requirements
 
-* **CMake** build tool version **>= 3.14.0**
+* **CMake** build tool version **>= 3.5.0**, >= 3.14.0 will be cool.
 * `pkg-config` tool
 * **GLib** library
   * On Ubuntu run:
