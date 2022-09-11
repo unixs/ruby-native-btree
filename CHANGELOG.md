@@ -8,8 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * delete_if()
-* each_key()
-* each_value()
+* each method refactoring for Enumerator return type
+
+## [0.3.0] - 2022-09-11
+
+### Added
+
+* to_proc()
+* empty?()
+* filter()
+* filter!()
+* select()
+* select!()
 
 ## [0.2.1] - 2022-09-08
 

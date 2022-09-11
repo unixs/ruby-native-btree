@@ -57,15 +57,24 @@ tree.height
 
 You must provide your own comparator for keys in `new` class method block.
 
-### Methods
+### API methods
+
+In general this class behave same as Hash
+
+Implemented methods:
 
 * `[]= (alias: set)`
 * `[] (alias: get)`
 * `delete`
 * `size`
 * `height`
-* `each`
+* `each` (NB! block is required)
 * `include?`
 * `clear`
 * `to_h`
 * `to_a`
+* `to_proc`
+* `filter` (alias: select)
+* `filter!` (alias: select!)
+
+You can mix in the `Enumerable` module if additional methods are needed.
