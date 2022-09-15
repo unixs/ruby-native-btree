@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * delete_if()
 * each method refactoring for Enumerator return type
 
+## [0.4.0] - 2022-09-16
+
+### Added
+
+* Native integer comparator
+* search_before()
+* search_after()
+* empty?()
+
+### Changed
+
+* Bugfixes
+
 ## [0.3.0] - 2022-09-11
 
 ### Added

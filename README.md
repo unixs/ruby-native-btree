@@ -112,5 +112,8 @@ Implemented methods:
 * `filter!` (alias: select!)
 * `each_value`
 * `each_key`
+* `search_before` (GLib version >= 2.68) - Select keys <= first arg, ret new Btree
+* `search_after` (GLib version >= 2.68) - Select keys >= first arg, ret new Btree
+* `empty?`
 
 You can mix in the `Enumerable` module if additional methods are needed.
