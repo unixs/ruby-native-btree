@@ -102,7 +102,7 @@ Implemented methods:
 * `delete`
 * `size`
 * `height`
-* `each` (NB! block is required)
+* `each` (NB! block is required) (NB! block is required)
 * `include?`
 * `clear`
 * `to_h`
