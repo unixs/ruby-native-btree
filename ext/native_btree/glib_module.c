@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <common.h>
 #include <glib_module.h>
 
@@ -40,5 +41,5 @@ rbtree_attach_module_glib()
     INT2NUM(GLIB_MICRO_VERSION)
   );
 
-  initialized = true;
+  initialized = TRUE;
 }

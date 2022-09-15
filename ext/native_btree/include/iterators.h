@@ -6,4 +6,8 @@ typedef struct {
   gconstpointer something;
 } RBTreeSearchData;
 
+#ifdef HAS_GTREE_NODE
+
 typedef GTreeNode *(RBTreeStepFunction) (GTreeNode *node);
+
+#endif
