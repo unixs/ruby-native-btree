@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(ruby-native-btree
 	LANGUAGES C
-	VERSION 0.4.0)
+	VERSION 0.4.1)
 
 include(CheckSymbolExists)
 include(CheckCCompilerFlag)
