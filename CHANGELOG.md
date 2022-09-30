@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * delete_if()
 * each method refactoring for Enumerator return type
 
+## [0.4.1] - 2022-09-30
+
+### Changed
+
+* Fix - Failed building on Apple M1 CPU
+
 ## [0.4.0] - 2022-09-16
 
 ### Added
