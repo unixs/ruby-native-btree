@@ -83,4 +83,7 @@ rbtree_keys(VALUE self);
 VALUE
 rbtree_values(VALUE self);
 
+VALUE
+rbtree_equal(VALUE self, VALUE btree);
+
 #endif // _NATIVE_BTREE_

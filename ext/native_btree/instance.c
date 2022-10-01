@@ -136,3 +136,90 @@ rbtree_is_empty(VALUE self)
 
   return size > 0 ? Qfalse : Qtrue;
 }
+
+
+static inline gboolean
+rbtree_compare_trees_nodes(GTreeNode *a, GTreeNode *b)
+{
+  gboolean result = TRUE;
+
+  VALUE key_a = (VALUE) g_tree_node_key(a);
+  VALUE val_a = (VALUE) g_tree_node_value(a);
+  VALUE key_b = (VALUE) g_tree_node_key(b);
+  VALUE val_b = (VALUE) g_tree_node_value(b);
+
+  VALUE key_result = rb_funcall(key_a, rb_intern("=="), 1, key_b);
+
+  if (!RTEST(key_result)) {
+    return FALSE;
+  }
+
+  VALUE val_result = rb_funcall(val_a, rb_intern("=="), 1, val_b);
+
+  if (!RTEST(val_result)) {
+    return FALSE;
+  }
+
+  return result;
+}
+
+
+static inline gboolean
+rbtree_compare_trees(const RBTree *a, const RBTree *b)
+{
+  // NOTE: Assume that the number of nodes is same (already checked)
+
+  GTreeNode *a_node = g_tree_node_first(a->gtree);
+  GTreeNode *b_node = g_tree_node_first(b->gtree);
+
+  gboolean result = FALSE;
+
+  while (a_node && b_node) {
+    result = rbtree_compare_trees_nodes(a_node, b_node);
+
+    if (!result) {
+      break;
+    }
+
+    a_node = g_tree_node_next(a_node);
+    b_node = g_tree_node_next(b_node);
+  }
+
+  return result;
+}
+
+
+VALUE
+rbtree_equal(VALUE self, VALUE second)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+  EXTRACT_RBTREE(second, rbtree2);
+
+  gint self_size = g_tree_nnodes(rbtree->gtree);
+  gint second_size = g_tree_nnodes(rbtree2->gtree);
+
+  VALUE result = Qfalse;
+
+  if (self_size != second_size) {
+    goto ret;
+  }
+
+  if (self_size == 0) {
+    result = Qtrue;
+    goto ret;
+  }
+
+#ifdef HAS_GTREE_NODE
+  if (rbtree_compare_trees(rbtree, rbtree2)) {
+    result = Qtrue;
+  }
+#else
+  // NOTE: This bypass causes additional memory consumption
+  VALUE self_h = rbtree_to_h(self);
+  VALUE second_h = rbtree_to_h(second);
+  result = rb_funcall(self_h, rb_intern("=="), 1, second_h);
+#endif
+
+  ret:
+  return result;
+}
