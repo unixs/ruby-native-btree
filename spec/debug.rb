@@ -2,6 +2,8 @@
 
 require_relative "../lib/native_btree/native_btree"
 
+NativeBtree::Btree.include(Enumerable)
+
 tree = NativeBtree::Btree.new() {|a, b| a - b }
 
 GC.start
@@ -35,8 +37,14 @@ tree[5] = 55
 tree[6] = 66
 tree[7] = 77
 
-puts tree.select_after(4).to_h
+puts tree.select_before(4).to_h
+
+puts res = tree.select { |v, k| k > 3 }
+puts res.to_h
 
 GC.start
+
+h = {_1: :_2, _3: :_4}
+puts h.each_key.next
 
 puts "exit 0"

@@ -45,6 +45,29 @@ RSpec.describe NativeBtree do
 
         expect(result).to eq(check)
       end
+
+      it 'return Enumerator without block' do
+        expect(tree.each).to be_kind_of(Enumerator)
+      end
+
+      it 'enumerator return correct values' do
+        tree[16] = 16
+        tree[0] = 0
+        tree[5] = 5
+        tree[-4] = -4
+        tree[7] = 7
+
+        check = [[-4, -4], [0, 0], [5, 5], [7, 7], [16, 16]]
+        result = []
+        enum = tree.each
+
+        loop do
+          result.push enum.next
+        end
+
+        expect(result).to eq(check)
+      end
+
     end
 
     describe "#each_key method" do

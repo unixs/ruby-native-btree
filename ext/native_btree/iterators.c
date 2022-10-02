@@ -38,13 +38,21 @@ foraech_value_callbac(gpointer a, gpointer b, gpointer data)
 }
 
 
+static VALUE
+rbtree_enum_length(VALUE rbtree, VALUE args, VALUE eobj)
+{
+  return rbtree_size(rbtree);
+}
+
+
 VALUE
 rbtree_each(VALUE self)
 {
-  rb_need_block();
-  VALUE block = rb_block_proc();
+  RETURN_SIZED_ENUMERATOR(self, 0, 0, rbtree_enum_length);
 
   EXTRACT_RBTREE_SELF(rbtree);
+
+  VALUE block = rb_block_proc();
 
   g_tree_foreach(rbtree->gtree, foraech_callbac, (gpointer) block);
 

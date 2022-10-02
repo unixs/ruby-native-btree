@@ -10,17 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * delete_if()
 * first, min
 * last, max
-* map
-* reduce
 * reverse_each
-* to_enum
-* each method refactoring for Enumerator return type
 
 ## [0.5.0] - 0000-00-00
 
 ### Added
 
 * ==()
+* each method without a block returns Enumerator
 
 ## [0.4.1] - 2022-09-30
 
