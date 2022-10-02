@@ -25,11 +25,14 @@ rbtree_compare_trees_nodes(GTreeNode *a, GTreeNode *b)
   return result;
 }
 
-
+/**
+ * Compare two trees
+ *
+ * This function assumes that the number of nodes is same (already checked)
+ */
 gboolean
 rbtree_compare_trees(const RBTree *a, const RBTree *b)
 {
-  // NOTE: Assume that the number of nodes is same (already checked)
 
   GTreeNode *a_node = g_tree_node_first(a->gtree);
   GTreeNode *b_node = g_tree_node_first(b->gtree);

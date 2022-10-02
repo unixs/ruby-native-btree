@@ -99,6 +99,7 @@ Implemented methods:
 
 * `[]= (alias: set)`
 * `[] (alias: get)`
+* `==` (If GLib version < 2.68 will convert trees to Hash under hood)
 * `delete`
 * `size`
 * `height`
