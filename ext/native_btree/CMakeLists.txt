@@ -23,7 +23,9 @@ else()
 	message(WARNING
 		"Available GLib is not support direct node access.
 		Version < 2.68.
-		Additional iterators will not compile.")
+		Additional iterators will not compile.
+		Comparison operator (==) will consume extra mem for to_h conversion\
+		under the hood")
 endif()
 
 add_library(${EXT_NAME}

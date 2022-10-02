@@ -186,5 +186,77 @@ RSpec.describe NativeBtree do
         expect(tree.empty?).to be true
       end
     end
+
+    describe '#== method' do
+      let(:tree2) do
+        described_class.new do |a, b|
+          a - b
+        end
+      end
+
+      it 'respond to' do
+        expect(tree).to respond_to(:==)
+      end
+
+      it 'return true if eql' do
+        tree[1] = 11
+        tree[2] = 22
+        tree[7] = 77
+
+        tree2[7] = 77
+        tree2[2] = 22
+        tree2[1] = 11
+
+        expect(tree).to eq tree2
+      end
+
+      it 'return false if not eql' do
+        tree[1] = 11
+        tree[2] = 22
+        tree[7] = 77
+        tree[8] = 88
+
+        tree2[7] = 77
+        tree2[2] = 22
+        tree2[1] = 11
+
+        expect(tree).not_to eq tree2
+      end
+
+      it 'return true if are empty trees' do
+        expect(tree).to eq tree2
+      end
+
+      it 'return false if one key is not eq' do
+        tree[5] = 11
+        tree[2] = 22
+        tree[7] = 77
+
+        tree2[7] = 77
+        tree2[2] = 22
+        tree2[1] = 11
+
+        expect(tree).not_to eq tree2
+      end
+
+      it 'return false if one value is not eq' do
+        tree[1] = 11
+        tree[2] = 22
+        tree[7] = 7
+
+        tree2[7] = 77
+        tree2[2] = 22
+        tree2[1] = 11
+
+        expect(tree).not_to eq tree2
+      end
+
+      it 'return false if any tree is empty' do
+        tree[1] = 11
+        tree[2] = 22
+
+        expect(tree).not_to eq tree2
+      end
+    end
   end
 end
