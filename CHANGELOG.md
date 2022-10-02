@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * delete_if()
 * first, min
 * last, max
-* reverse_each
 
 ## [0.5.0] - 0000-00-00
 
@@ -18,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * ==()
 * each method without a block returns Enumerator
+* reverse_each
 
 ## [0.4.1] - 2022-09-30
 

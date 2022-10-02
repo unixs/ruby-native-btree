@@ -67,7 +67,6 @@ RSpec.describe NativeBtree do
 
         expect(result).to eq(check)
       end
-
     end
 
     describe "#each_key method" do
@@ -105,6 +104,45 @@ RSpec.describe NativeBtree do
         check = [-40, 0, 50, 70, 160]
         result = []
         tree.each_value { |value| result << value }
+
+        expect(result).to eq(check)
+      end
+    end
+
+
+    describe "#reverse_each method" do
+      it "respond to" do
+        expect(tree).to respond_to(:reverse_each)
+      end
+
+      it 'yield in to block value first' do
+        tree[2] = 22
+
+        value = nil
+        tree.reverse_each { |v| value = v }
+
+        expect(value).to be 22
+      end
+
+      it 'yield in to block key second' do
+        tree[2] = 22
+
+        key = nil
+        tree.reverse_each { |_v, k| key = k }
+
+        expect(key).to be 2
+      end
+
+      it 'yield ordered keys in reverse order' do
+        tree[16] = 16
+        tree[0] = 0
+        tree[5] = 5
+        tree[-4] = -4
+        tree[7] = 7
+
+        check = [16, 7, 5, 0, -4]
+        result = []
+        tree.reverse_each { |value| result << value }
 
         expect(result).to eq(check)
       end

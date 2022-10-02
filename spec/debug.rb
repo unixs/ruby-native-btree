@@ -39,8 +39,7 @@ tree[7] = 77
 
 puts tree.select_before(4).to_h
 
-puts res = tree.select { |v, k| k > 3 }
-puts res.to_h
+puts res = tree.reverse_each { |v, k| puts v }
 
 GC.start
 

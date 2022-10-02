@@ -56,6 +56,7 @@ Init_native_btree()
   rb_define_alias(native_btree_class, "select!", "filter!");
   rb_define_method(native_btree_class, "empty?", rbtree_is_empty, 0);
   rb_define_method(native_btree_class, "==", rbtree_equal, 1);
+  rb_define_method(native_btree_class, "reverse_each", rbtree_reverse_each, 0);
 
 #ifdef HAS_GTREE_NODE
   rb_define_method(native_btree_class, "select_before", rbtree_select_before, 1);
