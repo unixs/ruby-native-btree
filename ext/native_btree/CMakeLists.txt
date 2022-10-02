@@ -53,6 +53,7 @@ list(APPEND LIB_OBJECTS
 
 if(HAS_GTREE_NODE)
 	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:additional_iterators>)
+	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:compare_trees>)
 endif()
 
 add_library(native_btree_interface
