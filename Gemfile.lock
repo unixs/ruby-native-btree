@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    native_btree (0.4.1)
+    native_btree (0.5.0)
 
 GEM
   remote: https://rubygems.org/
