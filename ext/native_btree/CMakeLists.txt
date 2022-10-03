@@ -23,9 +23,7 @@ else()
 	message(WARNING
 		"Available GLib is not support direct node access.
 		Version < 2.68.
-		Additional iterators will not compile.
-		Comparison operator (==) will consume extra mem for to_h conversion\
-		under the hood")
+		Additional iterators will not compile.")
 endif()
 
 add_library(${EXT_NAME}
@@ -40,6 +38,7 @@ add_library(iterators OBJECT iterators.c)
 add_library(conversion OBJECT conversion.c)
 add_library(search OBJECT search.c)
 add_library(glib_module OBJECT glib_module.c)
+add_library(utils OBJECT utils.c)
 
 
 set(LIB_OBJECTS)
@@ -56,6 +55,8 @@ list(APPEND LIB_OBJECTS
 if(HAS_GTREE_NODE)
 	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:additional_iterators>)
 	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:compare_trees>)
+else()
+	list(APPEND LIB_OBJECTS $<TARGET_OBJECTS:utils>)
 endif()
 
 add_library(native_btree_interface

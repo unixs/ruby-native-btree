@@ -2,6 +2,8 @@
 
 #ifdef HAS_GTREE_NODE
   #include <compare_trees.h>
+#else
+  #include <utils.h>
 #endif
 
 #ifndef HAS_GTREE_REMOVE_ALL
@@ -139,6 +141,53 @@ rbtree_is_empty(VALUE self)
 }
 
 
+#ifndef HAS_GTREE_NODE
+
+static inline gboolean
+legacy_rbtree_compare(const RBTree *a, const RBTree *b)
+{
+  gboolean result = FALSE;
+
+  GPtrArray *first = rbtree_to_ptr_array(a);
+  GPtrArray *second = rbtree_to_ptr_array(b);
+
+  // assumes that the size of arrays is same (checked before)
+
+  VALUE key, val, key2, val2, is_eq;
+
+  for (guint i = 0; i < first->len; i += 2) {
+    key = (VALUE) g_ptr_array_index(first, i);
+    val = (VALUE) g_ptr_array_index(first, i + 1);
+
+    key2 = (VALUE) g_ptr_array_index(second, i);
+    val2 = (VALUE) g_ptr_array_index(second, i + 1);
+
+    is_eq = rb_funcall(key, rb_intern("=="), 1, key2);
+
+    if (!RTEST(is_eq)) {
+      goto fail;
+    }
+
+    is_eq = rb_funcall(val, rb_intern("=="), 1, val2);
+
+    if (!RTEST(is_eq)) {
+      goto fail;
+    }
+  }
+
+  result = TRUE;
+
+  fail:
+
+  g_ptr_array_free(first, TRUE);
+  g_ptr_array_free(second, TRUE);
+
+  return result;
+}
+
+#endif
+
+
 VALUE
 rbtree_equal(VALUE self, VALUE second)
 {
@@ -164,10 +213,9 @@ rbtree_equal(VALUE self, VALUE second)
     result = Qtrue;
   }
 #else
-  // NOTE: This bypass causes additional memory consumption
-  VALUE self_h = rbtree_to_h(self);
-  VALUE second_h = rbtree_to_h(second);
-  result = rb_funcall(self_h, rb_intern("=="), 1, second_h);
+  if (legacy_rbtree_compare(rbtree, rbtree2)) {
+    result = Qtrue;
+  }
 #endif
 
   ret:

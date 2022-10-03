@@ -1,5 +1,8 @@
 #include <common.h>
 
+#ifndef HAS_GTREE_NODE
+  #include <utils.h>
+#endif
 
 static gboolean
 foraech_callbac(gpointer a, gpointer b, gpointer data)
@@ -89,21 +92,6 @@ rbtree_each_value(VALUE self)
   return self;
 }
 
-#ifndef HAS_GTREE_NODE
-
-static gint
-reverse_foraech_callback(gpointer a, gpointer b, gpointer data)
-{
-  GPtrArray *buff = (GPtrArray *) data;
-
-  g_ptr_array_add(buff, a);
-  g_ptr_array_add(buff, b);
-
-  return FALSE;
-}
-
-#endif
-
 
 VALUE
 rbtree_reverse_each(VALUE self)
@@ -125,12 +113,10 @@ rbtree_reverse_each(VALUE self)
     current = g_tree_node_previous(current);
   }
 #else
-  gint tree_size = g_tree_nnodes(rbtree->gtree);
-  GPtrArray *buff = g_ptr_array_sized_new(tree_size * 2);
-  g_tree_foreach(rbtree->gtree, reverse_foraech_callback, (gpointer) buff);
+  GPtrArray *buff = rbtree_to_ptr_array(rbtree);
 
   VALUE key, val;
-  for (gint i = buff->len - 1; i > 0; i--) {
+  for (glong i = buff->len - 1; i > 0; i--) {
     val = (VALUE) g_ptr_array_index(buff, i);
     key = (VALUE) g_ptr_array_index(buff, --i);
 

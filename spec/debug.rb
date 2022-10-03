@@ -5,6 +5,7 @@ require_relative "../lib/native_btree/native_btree"
 NativeBtree::Btree.include(Enumerable)
 
 tree = NativeBtree::Btree.new() {|a, b| a - b }
+tree2 = NativeBtree::Btree.new() {|a, b| a - b }
 
 GC.start
 
@@ -19,8 +20,6 @@ GC.start
 block = ->(key) { "#{key} is not found" }
 puts tree.delete(77, &block)
 
-tree2 = tree.filter!() { true }
-
 puts tree.to_h
 
 pr = tree.to_proc
@@ -29,21 +28,13 @@ puts pr
 
 
 tree.clear
-tree[1] = 15
-tree[2] = 22
-tree[3] = 33
-tree[4] = 44
-tree[5] = 55
-tree[6] = 66
-tree[7] = 77
+(1..1000000).each do |i|
+  tree[i] = i+2
+  tree2[i] = i+2
+end
 
-puts tree.select_before(4).to_h
-
-puts res = tree.reverse_each { |v, k| puts v }
+puts tree == tree2
 
 GC.start
-
-h = {_1: :_2, _3: :_4}
-puts h.each_key.next
 
 puts "exit 0"
