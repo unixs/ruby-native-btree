@@ -109,7 +109,6 @@ RSpec.describe NativeBtree do
       end
     end
 
-
     describe "#reverse_each method" do
       it "respond to" do
         expect(tree).to respond_to(:reverse_each)
