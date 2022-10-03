@@ -63,10 +63,11 @@ rbtree_each(VALUE self)
 VALUE
 rbtree_each_key(VALUE self)
 {
-  rb_need_block();
-  VALUE block = rb_block_proc();
+  RETURN_SIZED_ENUMERATOR(self, 0, 0, rbtree_enum_length);
 
   EXTRACT_RBTREE_SELF(rbtree);
+
+  VALUE block = rb_block_proc();
 
   g_tree_foreach(rbtree->gtree, foraech_key_callbac, (gpointer) block);
 
@@ -77,10 +78,11 @@ rbtree_each_key(VALUE self)
 VALUE
 rbtree_each_value(VALUE self)
 {
-  rb_need_block();
-  VALUE block = rb_block_proc();
+  RETURN_SIZED_ENUMERATOR(self, 0, 0, rbtree_enum_length);
 
   EXTRACT_RBTREE_SELF(rbtree);
+
+  VALUE block = rb_block_proc();
 
   g_tree_foreach(rbtree->gtree, foraech_value_callbac, (gpointer) block);
 

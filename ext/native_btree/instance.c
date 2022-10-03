@@ -66,9 +66,7 @@ rbtree_delete(VALUE self, VALUE key)
   }
   else {
     if (rb_block_given_p()) {
-      VALUE block = rb_block_proc();
-
-      return rb_funcall(block, rb_intern("call"), 1, key);
+      return rb_yield(key);
     }
 
     return Qnil;
