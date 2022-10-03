@@ -99,7 +99,7 @@ Implemented methods:
 
 * `[]= (alias: set)`
 * `[] (alias: get)`
-* `==` (If GLib version < 2.68 will convert trees to Hash under hood)
+* `==`
 * `delete`
 * `size`
 * `height`
@@ -116,5 +116,6 @@ Implemented methods:
 * `search_before` (GLib version >= 2.68) - Select keys <= first arg, ret new Btree
 * `search_after` (GLib version >= 2.68) - Select keys >= first arg, ret new Btree
 * `empty?`
+* `reverse_each`
 
 You can mix in the `Enumerable` module if additional methods are needed.

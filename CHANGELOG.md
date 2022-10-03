@@ -11,13 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * first, min
 * last, max
 
-## [0.5.0] - 0000-00-00
+## [0.5.0] - 2022-10-04
 
 ### Added
 
 * ==()
-* each method without a block returns Enumerator
+* each like methods without a block returns Enumerator
 * reverse_each
+
+### Changed
+
+* Refactoring
 
 ## [0.4.1] - 2022-09-30
 
