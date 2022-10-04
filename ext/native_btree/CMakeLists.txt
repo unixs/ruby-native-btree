@@ -16,6 +16,8 @@ if(HAS_GTREE_REMOVE_ALL)
 	add_compile_definitions(HAS_GTREE_REMOVE_ALL)
 endif()
 
+set(HAS_GTREE_NODE FALSE)
+
 if(HAS_GTREE_NODE)
 	add_compile_definitions(HAS_GTREE_NODE)
 	add_subdirectory("glib2_68")

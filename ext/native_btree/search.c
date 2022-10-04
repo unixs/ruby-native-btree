@@ -4,7 +4,7 @@
 static gboolean
 filter_callback(gpointer a, gpointer b, gpointer data)
 {
-  RBTreeSearchData *context = (RBTreeSearchData *) data;
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
 
   VALUE compare_result = rb_funcall(
     context->block,
@@ -24,7 +24,7 @@ filter_callback(gpointer a, gpointer b, gpointer data)
 static gboolean
 filter_bang_callback(gpointer a, gpointer b, gpointer data)
 {
-  RBTreeSearchData *context = (RBTreeSearchData *) data;
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
   GPtrArray *to_remove = (GPtrArray *) context->something;
 
   VALUE compare_result = rb_funcall(
@@ -55,9 +55,11 @@ rbtree_filter(VALUE self)
 
   EXTRACT_RBTREE(new_tree, new_rbtree);
 
-  RBTreeSearchData data = {
+  RBTreeSearchContext data = {
     block,
     new_rbtree,
+    0,
+    0,
     NULL
   };
 
@@ -76,9 +78,11 @@ rbtree_filter_bang(VALUE self)
 
   GPtrArray *to_remove = g_ptr_array_new();
 
-  RBTreeSearchData data = {
+  RBTreeSearchContext data = {
     block,
     NULL,
+    0,
+    0,
     (gconstpointer) to_remove
   };
 

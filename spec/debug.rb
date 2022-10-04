@@ -1,6 +1,7 @@
 # rubocop:disable all
 
 require_relative "../lib/native_btree/native_btree"
+require 'benchmark'
 
 NativeBtree::Btree.include(Enumerable)
 

@@ -4,6 +4,7 @@
   #include <compare_trees.h>
 #else
   #include <utils.h>
+  #include <iterators.h>
 #endif
 
 #ifndef HAS_GTREE_REMOVE_ALL
@@ -143,43 +144,61 @@ rbtree_is_empty(VALUE self)
 
 #ifndef HAS_GTREE_NODE
 
+static gint
+legacy_compare_visitor(gpointer a, gpointer b, gpointer data)
+{
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
+
+  GPtrArray *flat_tree = (GPtrArray *) context->something;
+  VALUE key = (VALUE) a;
+  VALUE val = (VALUE) b;
+  VALUE is_eq = Qfalse;
+
+  VALUE key2 = (VALUE) g_ptr_array_index(flat_tree, context->counter);
+  VALUE val2 = (VALUE) g_ptr_array_index(flat_tree, context->counter + 1);
+
+  is_eq = rb_funcall(key, rb_intern("=="), 1, key2);
+
+  if (!RTEST(is_eq)) {
+    context->flags = 1;
+    return TRUE;
+  }
+
+  is_eq = rb_funcall(val, rb_intern("=="), 1, val2);
+
+  if (!RTEST(is_eq)) {
+    context->flags = 1;
+    return TRUE;
+  }
+
+  (context->counter) += 2;
+
+  return FALSE;
+}
+
 static inline gboolean
 legacy_rbtree_compare(const RBTree *a, const RBTree *b)
 {
-  gboolean result = FALSE;
+  gboolean result = TRUE;
 
-  GPtrArray *first = rbtree_to_ptr_array(a);
   GPtrArray *second = rbtree_to_ptr_array(b);
 
   // assumes that the size of arrays is same (checked before)
 
-  VALUE key, val, key2, val2, is_eq;
+  RBTreeSearchContext context = {
+    Qnil,
+    NULL,
+    0,
+    0,
+    (gconstpointer) second
+  };
 
-  for (guint i = 0; i < first->len; i += 2) {
-    key = (VALUE) g_ptr_array_index(first, i);
-    val = (VALUE) g_ptr_array_index(first, i + 1);
+  g_tree_foreach(a->gtree, legacy_compare_visitor, &context);
 
-    key2 = (VALUE) g_ptr_array_index(second, i);
-    val2 = (VALUE) g_ptr_array_index(second, i + 1);
-
-    is_eq = rb_funcall(key, rb_intern("=="), 1, key2);
-
-    if (!RTEST(is_eq)) {
-      goto fail;
-    }
-
-    is_eq = rb_funcall(val, rb_intern("=="), 1, val2);
-
-    if (!RTEST(is_eq)) {
-      goto fail;
-    }
+  if (context.flags) {
+    result = FALSE;
   }
 
-  result = TRUE;
-
-  fail:
-
-  g_ptr_array_free(first, TRUE);
   g_ptr_array_free(second, TRUE);
 
   return result;
