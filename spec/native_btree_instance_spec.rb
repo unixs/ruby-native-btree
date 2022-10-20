@@ -258,5 +258,52 @@ RSpec.describe NativeBtree do
         expect(tree).not_to eq tree2
       end
     end
+
+    describe '#last method' do
+      it 'respond to' do
+        expect(tree).to respond_to(:last)
+      end
+
+      it 'return correct value' do
+        tree[1] = 10
+        tree[10] = 20
+        tree[20] = 30
+
+        expect(tree.last).to eq(30)
+      end
+
+      it 'return nil if empty' do
+        expect(tree.last).to be_nil
+      end
+    end
+
+    describe '#first method' do
+      it 'respond to' do
+        expect(tree).to respond_to(:first)
+      end
+
+      it 'return correct value' do
+        tree[1] = 10
+        tree[10] = 20
+        tree[20] = 30
+
+        expect(tree.first).to eq(10)
+      end
+
+      it 'return nil if empty' do
+        expect(tree.first).to be_nil
+      end
+    end
+
+    describe '#delete_if method' do
+      it 'respond to' do
+        expect(tree).to respond_to(:delete_if)
+      end
+
+      it 'return self if empty' do
+        expect(tree.delete_if { |_, _| false }).to be_nil
+      end
+    end
+
   end
 end

@@ -21,6 +21,96 @@ rbtree_remove_node(gpointer key, gpointer val, gpointer data) {
 #endif
 
 
+#ifndef HAS_GTREE_NODE
+
+static gint
+rbtree_first_cb(gpointer a, gpointer b, gpointer data)
+{
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
+
+  context->something = (gconstpointer) b;
+  context->counter = 0;
+
+  return TRUE;
+}
+
+
+static gint
+rbtree_last_cb(gpointer a, gpointer b, gpointer data)
+{
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
+
+  context->something = (gconstpointer) b;
+  context->counter += 1;
+
+  return FALSE;
+}
+
+
+static gint
+legacy_compare_visitor(gpointer a, gpointer b, gpointer data)
+{
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
+
+  GPtrArray *flat_tree = (GPtrArray *) context->something;
+  VALUE key = (VALUE) a;
+  VALUE val = (VALUE) b;
+  VALUE is_eq = Qfalse;
+
+  VALUE key2 = (VALUE) g_ptr_array_index(flat_tree, context->counter);
+  VALUE val2 = (VALUE) g_ptr_array_index(flat_tree, context->counter + 1);
+
+  is_eq = rb_funcall(key, rb_intern("=="), 1, key2);
+
+  if (!RTEST(is_eq)) {
+    context->flags = 1;
+    return TRUE;
+  }
+
+  is_eq = rb_funcall(val, rb_intern("=="), 1, val2);
+
+  if (!RTEST(is_eq)) {
+    context->flags = 1;
+    return TRUE;
+  }
+
+  (context->counter) += 2;
+
+  return FALSE;
+}
+
+
+static inline gboolean
+legacy_rbtree_compare(const RBTree *a, const RBTree *b)
+{
+  gboolean result = TRUE;
+
+  GPtrArray *second = rbtree_to_ptr_array(b);
+
+  // assumes that the size of arrays is same (checked before)
+
+  RBTreeSearchContext context = {
+    Qnil,
+    NULL,
+    0,
+    0,
+    (gconstpointer) second
+  };
+
+  g_tree_foreach(a->gtree, legacy_compare_visitor, &context);
+
+  if (context.flags) {
+    result = FALSE;
+  }
+
+  g_ptr_array_free(second, TRUE);
+
+  return result;
+}
+
+#endif
+
+
 VALUE
 rbtree_set(VALUE self, VALUE key, VALUE value)
 {
@@ -142,71 +232,6 @@ rbtree_is_empty(VALUE self)
 }
 
 
-#ifndef HAS_GTREE_NODE
-
-static gint
-legacy_compare_visitor(gpointer a, gpointer b, gpointer data)
-{
-  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
-
-  GPtrArray *flat_tree = (GPtrArray *) context->something;
-  VALUE key = (VALUE) a;
-  VALUE val = (VALUE) b;
-  VALUE is_eq = Qfalse;
-
-  VALUE key2 = (VALUE) g_ptr_array_index(flat_tree, context->counter);
-  VALUE val2 = (VALUE) g_ptr_array_index(flat_tree, context->counter + 1);
-
-  is_eq = rb_funcall(key, rb_intern("=="), 1, key2);
-
-  if (!RTEST(is_eq)) {
-    context->flags = 1;
-    return TRUE;
-  }
-
-  is_eq = rb_funcall(val, rb_intern("=="), 1, val2);
-
-  if (!RTEST(is_eq)) {
-    context->flags = 1;
-    return TRUE;
-  }
-
-  (context->counter) += 2;
-
-  return FALSE;
-}
-
-static inline gboolean
-legacy_rbtree_compare(const RBTree *a, const RBTree *b)
-{
-  gboolean result = TRUE;
-
-  GPtrArray *second = rbtree_to_ptr_array(b);
-
-  // assumes that the size of arrays is same (checked before)
-
-  RBTreeSearchContext context = {
-    Qnil,
-    NULL,
-    0,
-    0,
-    (gconstpointer) second
-  };
-
-  g_tree_foreach(a->gtree, legacy_compare_visitor, &context);
-
-  if (context.flags) {
-    result = FALSE;
-  }
-
-  g_ptr_array_free(second, TRUE);
-
-  return result;
-}
-
-#endif
-
-
 VALUE
 rbtree_equal(VALUE self, VALUE second)
 {
@@ -239,4 +264,77 @@ rbtree_equal(VALUE self, VALUE second)
 
   ret:
   return result;
+}
+
+
+VALUE
+rbtree_first(VALUE self)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+#ifdef HAS_GTREE_NODE
+  GTreeNode *node = g_tree_node_first(rbtree->gtree);
+
+  if (!node) {
+    return Qnil;
+  }
+
+  return (VALUE) g_tree_node_value(node);
+#else
+  RBTreeSearchContext context = {
+    Qnil,
+    NULL,
+    1,
+    0,
+    NULL
+  };
+
+  g_tree_foreach(rbtree->gtree, rbtree_first_cb, &context);
+
+  if (context.counter) {
+    return Qnil;
+  }
+
+  return (VALUE) context.something;
+#endif
+}
+
+
+VALUE
+rbtree_last(VALUE self)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+#ifdef HAS_GTREE_NODE
+  GTreeNode *node = g_tree_node_last(rbtree->gtree);
+
+  if (!node) {
+    return Qnil;
+  }
+
+  return (VALUE) g_tree_node_value(node);
+#else
+  RBTreeSearchContext context = {
+    Qnil,
+    NULL,
+    0,
+    0,
+    NULL
+  };
+
+  g_tree_foreach(rbtree->gtree, rbtree_last_cb, &context);
+
+  if (!context.counter) {
+    return Qnil;
+  }
+
+  return (VALUE) context.something;
+#endif
+}
+
+
+VALUE
+rbtree_delete_if(VALUE self)
+{
+
 }

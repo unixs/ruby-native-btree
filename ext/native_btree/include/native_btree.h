@@ -89,4 +89,10 @@ rbtree_equal(VALUE self, VALUE btree);
 VALUE
 rbtree_reverse_each(VALUE self);
 
+VALUE
+rbtree_first(VALUE self);
+
+VALUE
+rbtree_last(VALUE self);
+
 #endif // _NATIVE_BTREE_
