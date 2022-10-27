@@ -76,3 +76,14 @@ rbtree_to_proc(VALUE self)
 {
   return rb_proc_new(to_proc_proc, self);
 }
+
+
+VALUE
+rbtree_to_s(VALUE self)
+{
+  VALUE h = rbtree_to_h(self);
+
+  VALUE str = rb_sprintf("#<NativeBtree::Btree:%"PRIsVALUE">", h);
+
+  return str;
+}

@@ -62,6 +62,8 @@ Init_native_btree()
   rb_define_method(native_btree_class, "last", rbtree_last, 0);
   rb_define_alias(native_btree_class, "max", "last");
   rb_define_method(native_btree_class, "delete_if", rbtree_delete_if, 0);
+  rb_define_method(native_btree_class, "to_s", rbtree_to_s, 0);
+  rb_define_alias(native_btree_class, "inspect", "to_s");
 
 #ifdef HAS_GTREE_NODE
   rb_define_method(native_btree_class, "select_before", rbtree_select_before, 1);

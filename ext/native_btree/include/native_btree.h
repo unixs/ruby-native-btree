@@ -95,4 +95,7 @@ rbtree_first(VALUE self);
 VALUE
 rbtree_last(VALUE self);
 
+VALUE
+rbtree_to_s(VALUE self);
+
 #endif // _NATIVE_BTREE_

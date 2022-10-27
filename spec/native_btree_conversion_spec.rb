@@ -65,6 +65,37 @@ RSpec.describe NativeBtree do
           expect(pr.call(12)).to be_nil
         end
       end
+
+      describe "#to_s" do
+        it 'respond to' do
+          expect(tree).to respond_to(:to_s)
+        end
+
+        it 'return correct str for empty' do
+          expect(tree.to_s).to eq('#<NativeBtree::Btree:{}>')
+        end
+
+        it 'return correct str' do
+          tree[10] = "20"
+          expect(tree.to_s).to eq('#<NativeBtree::Btree:{10=>"20"}>')
+        end
+      end
+
+      describe "#inspect" do
+        it 'respond to' do
+          expect(tree).to respond_to(:inspect)
+        end
+
+        it 'return correct str for empty' do
+          expect(tree.to_s).to eq('#<NativeBtree::Btree:{}>')
+        end
+
+        it 'return correct str' do
+          tree[10] = "20"
+          tree[30] = "40"
+          expect(tree.to_s).to eq('#<NativeBtree::Btree:{10=>"20", 30=>"40"}>')
+        end
+      end
     end
   end
 end
