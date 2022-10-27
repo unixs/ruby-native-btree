@@ -103,12 +103,14 @@ Implemented methods:
 * `delete`
 * `size`
 * `height`
-* `each` (NB! block is required) (NB! block is required)
+* `each`
 * `include?`
 * `clear`
 * `to_h`
 * `to_a`
 * `to_proc`
+* `to_s`
+* `inspect`
 * `filter` (alias: select)
 * `filter!` (alias: select!)
 * `each_value`
@@ -117,5 +119,6 @@ Implemented methods:
 * `search_after` (GLib version >= 2.68) - Select keys >= first arg, ret new Btree
 * `empty?`
 * `reverse_each`
+* `delete_if`
 
 You can mix in the `Enumerable` module if additional methods are needed.
