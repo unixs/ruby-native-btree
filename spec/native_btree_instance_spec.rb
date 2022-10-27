@@ -300,8 +300,18 @@ RSpec.describe NativeBtree do
         expect(tree).to respond_to(:delete_if)
       end
 
-      it 'return self if empty' do
-        expect(tree.delete_if { |_, _| false }).to be_nil
+      it 'return self' do
+        expect(tree.delete_if { |_, _| false }).to be tree
+      end
+
+      it 'return expected result' do
+        tree[1] = 10
+        tree[10] = 20
+        tree[20] = 30
+
+        tree.delete_if { |_, v| v < 30 }
+
+        expect(tree.to_a).to eq([[20, 30]])
       end
     end
 

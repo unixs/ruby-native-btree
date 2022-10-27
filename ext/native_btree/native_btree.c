@@ -58,7 +58,9 @@ Init_native_btree()
   rb_define_method(native_btree_class, "==", rbtree_equal, 1);
   rb_define_method(native_btree_class, "reverse_each", rbtree_reverse_each, 0);
   rb_define_method(native_btree_class, "first", rbtree_first, 0);
+  rb_define_alias(native_btree_class, "min", "first");
   rb_define_method(native_btree_class, "last", rbtree_last, 0);
+  rb_define_alias(native_btree_class, "max", "last");
   rb_define_method(native_btree_class, "delete_if", rbtree_delete_if, 0);
 
 #ifdef HAS_GTREE_NODE

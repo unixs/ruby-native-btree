@@ -1,4 +1,5 @@
 #include <common.h>
+#include <iterators.h>
 
 #ifndef HAS_GTREE_NODE
   #include <utils.h>
@@ -125,6 +126,56 @@ rbtree_reverse_each(VALUE self)
 
   g_ptr_array_free(buff, TRUE);
 #endif
+
+  return self;
+}
+
+
+static gint
+rbtree_delete_if_cb(gpointer k, gpointer v, gpointer data)
+{
+  VALUE key = (VALUE) k;
+  VALUE value = (VALUE) v;
+  RBTreeSearchContext *context = (RBTreeSearchContext *) data;
+  VALUE block = (VALUE) context->block;
+  GPtrArray *result = (GPtrArray *) context->something;
+
+  VALUE to_delete = rb_funcall(block, rb_intern("call"), 2, key, value);
+
+  if (RTEST(to_delete)) {
+    g_ptr_array_add(result, (gpointer) key);
+  }
+
+  return FALSE;
+}
+
+
+VALUE
+rbtree_delete_if(VALUE self)
+{
+  EXTRACT_RBTREE_SELF(rbtree);
+
+  GPtrArray *to_delete = g_ptr_array_new();
+
+  RETURN_SIZED_ENUMERATOR(self, 0, 0, rbtree_enum_length);
+
+  VALUE block = rb_block_proc();
+
+  RBTreeSearchContext context = {
+    block,
+    NULL,
+    0,
+    0,
+    to_delete
+  };
+
+  g_tree_foreach(rbtree->gtree, rbtree_delete_if_cb, &context);
+
+  for (guint i = 0; i < to_delete->len; i++) {
+    g_tree_remove(rbtree->gtree, g_ptr_array_index(to_delete, i));
+  }
+
+  g_ptr_array_free(to_delete, TRUE);
 
   return self;
 }

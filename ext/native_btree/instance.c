@@ -331,10 +331,3 @@ rbtree_last(VALUE self)
   return (VALUE) context.something;
 #endif
 }
-
-
-VALUE
-rbtree_delete_if(VALUE self)
-{
-
-}

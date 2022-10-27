@@ -7,9 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* compact
+* compact!
+
+## [0.6.0] - 0000-00-00
+
+### Added
+
+* inspect
+* to_s
 * delete_if()
 * first, min
 * last, max
+
+### Changed
+
+* Refactoring
 
 ## [0.5.0] - 2022-10-04
 
