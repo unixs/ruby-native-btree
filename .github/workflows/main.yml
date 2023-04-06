@@ -27,10 +27,24 @@ jobs:
     - name: Codecheck
       run: bundle exec rake rubocop
 
-    - name: Test
+    - name: Test Release
       run: |
         rake cmake:build
         bundle exec rake spec
+
+    - name: Test Debug with coverage
+      run: |
+        bundle exec rake cmake:rmbuild
+        CMAKE_BUILD_TYPE=Debug bundle exec rake cmake:build
+        bundle exec rake spec
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        gcov: true
+        verbose: true
+      env:
+        CI: true
 
     - name: Build & install
       if: github.ref == 'refs/heads/master'

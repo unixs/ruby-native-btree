@@ -37,7 +37,7 @@ namespace :cmake do
     sh "cmake --build #{BUILD_DIR}"
   end
 
-  desc "`Rebuild ext CMake project"
+  desc "Rebuild ext CMake project"
   task rebuild: %i[cmake:configure] do
     sh "cmake --build #{BUILD_DIR} --clean-first"
   end
