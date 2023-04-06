@@ -178,7 +178,11 @@ rbtree_height(VALUE self)
   return result;
 }
 
-
+/**
+ * Returns number of nodes
+ *
+ * @return [Integer] number of nodes
+ */
 VALUE
 rbtree_size(VALUE self)
 {

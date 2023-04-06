@@ -1,4 +1,5 @@
 # Bindings to GLib-2.0 data structure BTree
+# Root namespace
 module NativeBtree
 end
 

@@ -2,29 +2,20 @@
 #include <rbtree_type.h>
 #include <glib_module.h>
 
-#define NATIVE_BTREE_MODULE "NativeBtree"
-#define NATIVE_BTREE_CLASS "Btree"
-#define NATIVE_BTREE_CONST_INT_COMPARATOR "INT_COMPARATOR"
-
-
 VALUE native_btree_class;
 VALUE native_btree_module;
 
 void
 Init_native_btree()
 {
-  native_btree_module = rb_define_module(NATIVE_BTREE_MODULE);
-  native_btree_class = rb_define_class_under(
-    native_btree_module,
-    NATIVE_BTREE_CLASS,
-    rb_cObject
-  );
+  native_btree_module = rb_define_module("NativeBtree");
+  native_btree_class = rb_define_class_under(native_btree_module, "Btree", rb_cObject);
 
   VALUE int_comparator = USHORT2NUM(RBTREE_FLAG_INT_COMPARATOR);
   OBJ_FREEZE(int_comparator);
   rb_define_const(
     native_btree_class,
-    NATIVE_BTREE_CONST_INT_COMPARATOR,
+    "INT_COMPARATOR",
     int_comparator
   );
 
