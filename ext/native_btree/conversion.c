@@ -26,7 +26,11 @@ rbtree_to_a_callback(gpointer key, gpointer value, gpointer data)
   return FALSE;
 }
 
-
+/**
+ * Converts tree to Hash
+ *
+ * @return [Hash] result
+ */
 VALUE
 rbtree_to_h(VALUE self)
 {
@@ -39,7 +43,13 @@ rbtree_to_h(VALUE self)
   return hash;
 }
 
-
+/**
+ * Converts tree to array
+ *
+ * Coverts tree to array of arrays with key and value
+ *
+ * @return [Array] result
+ */
 VALUE
 rbtree_to_a(VALUE self)
 {
@@ -70,14 +80,24 @@ to_proc_proc(RB_BLOCK_CALL_FUNC_ARGLIST(key, callback_arg))
   return value;
 }
 
-
+/**
+ * Returns a Proc object that maps a key to its value
+ *
+ * @return [Proc] block
+ */
 VALUE
 rbtree_to_proc(VALUE self)
 {
   return rb_proc_new(to_proc_proc, self);
 }
 
-
+/**
+ * Converts tree to string.
+ *
+ * Under hood will convert tree to Hash.
+ *
+ * @return [String] result
+ */
 VALUE
 rbtree_to_s(VALUE self)
 {

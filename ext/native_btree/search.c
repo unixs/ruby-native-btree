@@ -43,6 +43,13 @@ filter_bang_callback(gpointer a, gpointer b, gpointer data)
   return FALSE;
 }
 
+/**
+ * Filters btree by block call
+ *
+ * If block returns true, key/value will include in result tree
+ *
+ * @return [Btree] result
+ */
 VALUE
 rbtree_filter(VALUE self)
 {
@@ -68,6 +75,13 @@ rbtree_filter(VALUE self)
   return new_tree;
 }
 
+/**
+ * Filters btree by block call
+ *
+ * Same as #filter but returns changed self.
+ *
+ * @return [Btree] result
+ */
 VALUE
 rbtree_filter_bang(VALUE self)
 {
