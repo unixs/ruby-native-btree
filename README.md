@@ -88,38 +88,11 @@ tree.to_a
 #]
 ```
 
-## API ref
+## API
 
-You must provide your own comparator for keys in `new` class method block.
+* You must provide your own comparator for keys in `new` class method block.
+* You can mix in the `Enumerable` module if additional methods are needed.
 
 ### API methods
 
-In general this class behave same as Hash
-
-Implemented methods:
-
-* `[]= (alias: set)`
-* `[] (alias: get)`
-* `==`
-* `delete`
-* `size`
-* `height`
-* `each`
-* `include?`
-* `clear`
-* `to_h`
-* `to_a`
-* `to_proc`
-* `to_s`
-* `inspect`
-* `filter` (alias: select)
-* `filter!` (alias: select!)
-* `each_value`
-* `each_key`
-* `search_before` (GLib version >= 2.68) - Select keys <= first arg, ret new Btree
-* `search_after` (GLib version >= 2.68) - Select keys >= first arg, ret new Btree
-* `empty?`
-* `reverse_each`
-* `delete_if`
-
-You can mix in the `Enumerable` module if additional methods are needed.
+[YARD documentation](https://rubydoc.info/gems/native_btree)
