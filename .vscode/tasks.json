@@ -29,6 +29,15 @@
       },
       "problemMatcher": [],
       "label": "Build gem"
+    },
+    {
+      "type": "shell",
+      "label": "Yard stats",
+      "command": "yard",
+      "args": [
+        "stats"
+      ],
+      "problemMatcher": []
     }
   ]
 }

@@ -110,7 +110,15 @@ legacy_rbtree_compare(const RBTree *a, const RBTree *b)
 
 #endif
 
-
+/**
+ * Adds key/value pair in to tree.
+ *
+ * Key/value will be replaced if key already exists.
+ *
+ * @param key [Object]
+ * @param value [Object]
+ * @return [Btree] self
+ */
 VALUE
 rbtree_set(VALUE self, VALUE key, VALUE value)
 {
@@ -121,7 +129,14 @@ rbtree_set(VALUE self, VALUE key, VALUE value)
   return self;
 }
 
-
+/**
+ * Gets value by key from tree.
+ *
+ * * Returns +nil+ if key does not exist.
+ *
+ * @param key [Object]
+ * @return [Object] result
+ */
 VALUE
 rbtree_get(VALUE self, VALUE key)
 {
@@ -138,7 +153,16 @@ rbtree_get(VALUE self, VALUE key)
   return result;
 }
 
-
+/**
+ * Deletes key/value pair from tree.
+ *
+ * * Returns value if key exists
+ * * Returns +nil+ if key does not exists
+ * * Returns result of block if block was given
+ *
+ * @param key [Object] Key
+ * @return [Object] result
+ */
 VALUE
 rbtree_delete(VALUE self, VALUE key)
 {
@@ -166,7 +190,11 @@ rbtree_delete(VALUE self, VALUE key)
   }
 }
 
-
+/**
+ * Returns tree height
+ *
+ * @return [Integer] maximum nodes in path from root to leaf
+ */
 VALUE
 rbtree_height(VALUE self)
 {
@@ -194,7 +222,11 @@ rbtree_size(VALUE self)
   return result;
 }
 
-
+/**
+ * Remove all nodes from tree.
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_clear(VALUE self)
 {
@@ -210,6 +242,12 @@ rbtree_clear(VALUE self)
 }
 
 
+/**
+ * Checks that the given key is in the tree.
+ *
+ * @param key [Object]
+ * @return [Boolean] result
+ */
 VALUE
 rbtree_is_include(VALUE self, VALUE key)
 {
@@ -224,7 +262,11 @@ rbtree_is_include(VALUE self, VALUE key)
   return Qtrue;
 }
 
-
+/**
+ * Checks that self tree is empty.
+ *
+ * @return [Boolean] result
+ */
 VALUE
 rbtree_is_empty(VALUE self)
 {
@@ -235,7 +277,18 @@ rbtree_is_empty(VALUE self)
   return size > 0 ? Qfalse : Qtrue;
 }
 
-
+/**
+ * Checks if two trees are equal.
+ *
+ * Compares with +==+ method all keys and values from trees by order.
+ *
+ * * Returns +false+ if number of keys are not equal.
+ * * Returns +false+ if one keys or one values pair are not equal.
+ * * Returns +true+ if all keys and values are equal.
+ *
+ * @param second [Btree]
+ * @return [Boolean] result
+ */
 VALUE
 rbtree_equal(VALUE self, VALUE second)
 {
@@ -270,7 +323,11 @@ rbtree_equal(VALUE self, VALUE second)
   return result;
 }
 
-
+/**
+ * Returns value from smallest key
+ *
+ * @return [Object] result
+ */
 VALUE
 rbtree_first(VALUE self)
 {
@@ -303,7 +360,11 @@ rbtree_first(VALUE self)
 #endif
 }
 
-
+/**
+ * Returns value from largest key
+ *
+ * @return [Object] result
+ */
 VALUE
 rbtree_last(VALUE self)
 {

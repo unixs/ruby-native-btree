@@ -13,6 +13,11 @@ Init_native_btree()
 
   VALUE int_comparator = USHORT2NUM(RBTREE_FLAG_INT_COMPARATOR);
   OBJ_FREEZE(int_comparator);
+
+  /**
+   * Represents native comparator for integer keys
+   * @note Can be replaced with specific class in future releases
+   */
   rb_define_const(
     native_btree_class,
     "INT_COMPARATOR",

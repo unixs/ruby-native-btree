@@ -48,7 +48,11 @@ rbtree_enum_length(VALUE rbtree, VALUE args, VALUE eobj)
   return rbtree_size(rbtree);
 }
 
-
+/**
+ * Execute block for each key/value pairs
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_each(VALUE self)
 {
@@ -63,7 +67,11 @@ rbtree_each(VALUE self)
   return self;
 }
 
-
+/**
+ * Execute block for each key
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_each_key(VALUE self)
 {
@@ -78,7 +86,11 @@ rbtree_each_key(VALUE self)
   return self;
 }
 
-
+/**
+ * Execute block for each value
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_each_value(VALUE self)
 {
@@ -93,7 +105,11 @@ rbtree_each_value(VALUE self)
   return self;
 }
 
-
+/**
+ * Execute block for each key/value pairs in reverse order
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_reverse_each(VALUE self)
 {
@@ -149,7 +165,14 @@ rbtree_delete_if_cb(gpointer k, gpointer v, gpointer data)
   return FALSE;
 }
 
-
+/**
+ * Deletes key/value pair from tree by result of block.
+ *
+ * Will execute block for each key/value pairs
+ * and delete them if block returns +true+
+ *
+ * @return [Btree] self
+ */
 VALUE
 rbtree_delete_if(VALUE self)
 {

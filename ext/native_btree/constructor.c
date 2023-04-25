@@ -27,6 +27,14 @@ init_rbtree(RBTree *rbtree, gushort flags)
   rbtree->flags = flags;
 }
 
+/**
+ * Constructor
+ *
+ * Accepts block as "comparator" function.
+ * This function will recive two keys for comparison.
+ *
+ * @return [Btree] new instance
+ */
 VALUE
 rbtree_initialize(int argc, VALUE* argv, VALUE self)
 {
