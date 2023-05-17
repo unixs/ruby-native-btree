@@ -7,9 +7,9 @@ stages:          # List of stages for jobs and their order of execution
 prepare-job:
   stage: prepare
   script:
-    - sudo apt update
-    - sudo apt -y upgrade
-    - sudo apt-get -y install pkg-config cmake libglib2.0-dev build-essentials
+    - apt update
+    - apt -y upgrade
+    - apt-get -y install pkg-config cmake libglib2.0-dev build-essentials
     - gem install bundler
     - bundle install 
 
