@@ -11,7 +11,8 @@ prepare-job:
     - apt -y upgrade
     - apt-get -y install pkg-config cmake libglib2.0-dev build-essential
     - gem install bundler
-    - bundle install 
+    - bundle install
+    - rake cmake:build
 
 #build-job:
 #  stage: build
