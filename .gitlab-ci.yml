@@ -9,7 +9,7 @@ prepare-job:
   script:
     - apt update
     - apt -y upgrade
-    - apt-get -y install pkg-config cmake libglib2.0-dev build-essentials
+    - apt-get -y install pkg-config cmake libglib2.0-dev build-essential
     - gem install bundler
     - bundle install 
 
