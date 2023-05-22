@@ -18,9 +18,6 @@ prepare-job:
     - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
     - env | grep CI_
-    - apt update
-    - apt -y upgrade
-    - apt-get -y install pkg-config cmake libglib2.0-dev build-essential
     - gem install bundler
     - bundle install
     - rake cmake:build
