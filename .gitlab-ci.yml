@@ -9,6 +9,12 @@ prepare-job:
   artifacts:
     paths:
       - $CI_PROJECT_NAME.gem
+  before_script:
+    - mkdir ~/.gem
+    - echo "---" > ~/.gem/credentials
+    - |
+      echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
+    - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
     - env | grep CI_
     - apt update
@@ -19,6 +25,7 @@ prepare-job:
     - rake cmake:build
     - rake spec
     - gem build -o $CI_PROJECT_NAME.gem
+    - gem push $CI_PROJECT_NAME.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
 
 #build-job:
 #  stage: build
