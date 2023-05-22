@@ -5,7 +5,27 @@ stages:          # List of stages for jobs and their order of execution
 #  - test
 #  - deploy
 
+.full_cache: &full_cache
+  key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+  paths:
+    - vendor/ruby
+
+bundler:
+  stage: prepare
+  cache:
+    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+    paths:
+      - vendor/ruby
+    policy: push
+
+  script: 
+    - env | grep CI_
+    - gem install bundler
+    - bundle config set --local path 'vendor/ruby'
+    - bundle install
+
 prepare-job:
+  when: manual
   stage: prepare
   artifacts:
     paths:
@@ -18,8 +38,6 @@ prepare-job:
     - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
     - env | grep CI_
-    - gem install bundler
-    - bundle install
     - rake cmake:build
     - rake spec
     - gem build -o $CI_PROJECT_NAME.gem
