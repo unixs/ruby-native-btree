@@ -6,6 +6,9 @@ stages:          # List of stages for jobs and their order of execution
 
 prepare-job:
   stage: prepare
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.gem
   script:
     - env | grep CI_
     - apt update
@@ -15,6 +18,7 @@ prepare-job:
     - bundle install
     - rake cmake:build
     - rake spec
+    - gem build -o $CI_PROJECT_NAME.gem
 
 #build-job:
 #  stage: build
