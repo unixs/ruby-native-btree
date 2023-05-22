@@ -1,7 +1,7 @@
 image: unixs/ruby-cmake
 stages:          # List of stages for jobs and their order of execution
   - prepare
-#  - build
+  - build
 #  - test
 #  - deploy
 
@@ -17,12 +17,27 @@ bundler:
     paths:
       - vendor/ruby
     policy: push
-
+  only:
+    changes:
+      - Gemfile.log
   script: 
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
     - bundle install
+
+building:
+  stage: build
+  cache:
+    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+    paths:
+      - vendor/ruby
+    policy: pull
+  script:
+    - env | grep CI_
+    - gem install bundler
+    - bundle config set --local path 'vendor/ruby'
+    - rake cmake:build
 
 prepare-job:
   when: manual
@@ -37,8 +52,7 @@ prepare-job:
       echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
     - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
   script:
-    - env | grep CI_
-    - rake cmake:build
+    
     - rake spec
     - gem build -o $CI_PROJECT_NAME.gem
 #    - gem push $CI_PROJECT_NAME.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
