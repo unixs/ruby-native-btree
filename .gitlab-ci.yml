@@ -1,8 +1,10 @@
 image: unixs/ruby-cmake
 stages:          # List of stages for jobs and their order of execution
   - prepare
+  - codecheck
+  - test
   - build
-#  - test
+
 #  - deploy
 
 .full_cache: &full_cache
@@ -26,6 +28,45 @@ bundler:
     - bundle config set --local path 'vendor/ruby'
     - bundle install
 
+codecheck:
+  stage: codecheck
+  cache:
+    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+    paths:
+      - vendor/ruby
+    policy: pull
+  script:
+    - env | grep CI_
+    - gem install bundler
+    - bundle config set --local path 'vendor/ruby'
+    - rake rubocop
+
+test-latest:
+  stage: test
+  cache:
+    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+    paths:
+      - vendor/ruby
+    policy: pull
+  script:
+    - env | grep CI_
+    - gem install bundler
+    - bundle config set --local path 'vendor/ruby'
+    - rake rubocop
+
+test-legacy:
+  stage: test
+  cache:
+    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+    paths:
+      - vendor/ruby
+    policy: pull
+  script:
+    - env | grep CI_
+    - gem install bundler
+    - bundle config set --local path 'vendor/ruby'
+    - rake rubocop
+
 building:
   stage: build
   cache:
@@ -38,6 +79,7 @@ building:
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
     - rake cmake:build
+
 
 prepare-job:
   when: manual
