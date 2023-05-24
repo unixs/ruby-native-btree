@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Переменные окружения
-ENV RUBY_TEST_VER=2.7
+ENV RUBY_TEST_VER=3.2
 ENV TZ=UTC
 ENV DEV_USER=developer
 ENV DEV_HOME=/home/${DEV_USER}
