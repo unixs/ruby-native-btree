@@ -21,7 +21,7 @@ bundler:
     policy: push
   only:
     changes:
-      - Gemfile.log
+      - Gemfile.lock
   script: 
     - env | grep CI_
     - gem install bundler
@@ -39,7 +39,7 @@ codecheck:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
-    - rake rubocop
+    - bundle exec rake rubocop
 
 test-latest:
   image: unixs/ruby-btree-tests
@@ -53,7 +53,7 @@ test-latest:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
-    - rake spec
+    - bundle exec rake spec
 
 test-legacy:
   image: unixs/ruby-btree-tests:legacy
@@ -67,7 +67,7 @@ test-legacy:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
-    - rake spec
+    - bundle exec rake spec
 
 building:
   stage: build
