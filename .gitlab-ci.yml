@@ -1,6 +1,6 @@
 image: unixs/ruby-cmake
 stages:          # List of stages for jobs and their order of execution
-  - prepare
+  #- prepare
   - codecheck
   - test
   - build
@@ -12,76 +12,80 @@ stages:          # List of stages for jobs and their order of execution
   paths:
     - vendor/ruby
 
-bundler:
-  stage: prepare
-  cache:
-    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-    paths:
-      - vendor/ruby
-    policy: push
-  only:
-    changes:
-      - Gemfile.lock
-  script: 
-    - env | grep CI_
-    - gem install bundler
-    - bundle config set --local path 'vendor/ruby'
-    - bundle install
+#bundler:
+#  stage: prepare
+#  cache:
+#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+#    paths:
+#      - vendor/ruby
+#    policy: push
+#  only:
+#    changes:
+#      - Gemfile.lock
+#  script: 
+#    - env | grep CI_
+#    - gem install bundler
+#    - bundle config set --local path 'vendor/ruby'
+#    - bundle install
 
 codecheck:
   stage: codecheck
-  cache:
-    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-    paths:
-      - vendor/ruby
-    policy: pull
+#  cache:
+#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+#    paths:
+#      - vendor/ruby
+#    policy: pull
   script:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
+    - bundle install
     - bundle exec rake rubocop
 
 test-latest:
   image: unixs/ruby-btree-tests
   stage: test
-  cache:
-    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-    paths:
-      - vendor/ruby
-    policy: pull
+#  cache:
+#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+#    paths:
+#      - vendor/ruby
+#    policy: pull
   script:
     - source ~/.rvm/scripts/rvm
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
+    - bundle install
     - bundle exec rake spec
 
 test-legacy:
   image: unixs/ruby-btree-tests:legacy
   stage: test
-  cache:
-    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-    paths:
-      - vendor/ruby
-    policy: pull
+#  cache:
+#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+#    paths:
+#      - vendor/ruby
+#    policy: pull
   script:
     - source ~/.rvm/scripts/rvm
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
+    - bundle install
     - bundle exec rake spec
 
 building:
   stage: build
-  cache:
-    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-    paths:
-      - vendor/ruby
-    policy: pull
+#  cache:
+#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+#    paths:
+#      - vendor/ruby
+#    policy: pull
   script:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
+    - bundle install
     - rake cmake:build
 
 
