@@ -42,6 +42,7 @@ codecheck:
     - rake rubocop
 
 test-latest:
+  image: unixs/ruby-btree-tests
   stage: test
   cache:
     key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
@@ -52,9 +53,10 @@ test-latest:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
-    - rake rubocop
+    - rake spec
 
 test-legacy:
+  image: unixs/ruby-btree-tests:legacy
   stage: test
   cache:
     key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
@@ -65,7 +67,7 @@ test-legacy:
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
-    - rake rubocop
+    - rake spec
 
 building:
   stage: build

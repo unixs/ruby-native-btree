@@ -2,6 +2,7 @@
 FROM ubuntu:latest
 
 # Переменные окружения
+ENV RUBY_TEST_VER=2.7
 ENV TZ=UTC
 ENV DEV_USER=developer
 ENV DEV_HOME=/home/${DEV_USER}
@@ -22,9 +23,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 
 # Смена пользователя по-умолчанию и рабочего каталога
 USER ${DEV_USER}
+SHELL [ "/bin/bash", "-l", "-c" ]
 RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && \
   curl -sSL https://get.rvm.io | bash && \
-  rvm install 2.7
+  source /home/${DEV_USER}/.rvm/scripts/rvm && \
+  rvm install ${RUBY_TEST_VER}
 
 WORKDIR ${DEV_PATH}
 
