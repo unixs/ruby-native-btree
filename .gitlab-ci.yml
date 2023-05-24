@@ -91,7 +91,7 @@ building:
 
 prepare-job:
   when: manual
-  stage: prepare
+  stage: build
   artifacts:
     paths:
       - $CI_PROJECT_NAME.gem
