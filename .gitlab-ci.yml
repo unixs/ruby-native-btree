@@ -50,6 +50,7 @@ test-latest:
       - vendor/ruby
     policy: pull
   script:
+    - source ~/.rvm/scripts/rvm
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
@@ -64,6 +65,7 @@ test-legacy:
       - vendor/ruby
     policy: pull
   script:
+    - source ~/.rvm/scripts/rvm
     - env | grep CI_
     - gem install bundler
     - bundle config set --local path 'vendor/ruby'
