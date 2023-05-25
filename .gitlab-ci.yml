@@ -94,7 +94,7 @@ build-deploy:
     - env | grep CI_
     - env | grep GEM_
     - gem build -o $GEM_NAME
-    - gem push $GEM_NAME --host $GEM_PUSH_URL
+    - curl -F package=@$GEM_NAME $GEM_PUSH_URL
 
 prepare-job:
   when: manual
