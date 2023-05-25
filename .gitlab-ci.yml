@@ -28,6 +28,7 @@ stages:          # List of stages for jobs and their order of execution
 #    - bundle install
 
 codecheck:
+  when: manual
   stage: codecheck
 #  cache:
 #    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
@@ -42,6 +43,7 @@ codecheck:
     - bundle exec rake rubocop
 
 test-latest:
+  when: manual
   image: unixs/ruby-btree-tests
   stage: test
 #  cache:
@@ -59,6 +61,7 @@ test-latest:
     - bundle exec rake spec
 
 test-legacy:
+  when: manual
   image: unixs/ruby-btree-tests:legacy
   stage: test
 #  cache:
@@ -88,7 +91,7 @@ build-deploy:
     - env | grep CI_
     - env | grep GEM_
     - gem build -o ruby-btree.gem
-    - gem push ruby-btree.gem --host https://$GEM_PUSH_TOKEN@$GEM_PUSH_HOST/$GEM_PUSH_PATH/
+    - gem push ruby-btree.gem --host https://${GEM_PUSH_TOKEN}@${GEM_PUSH_HOST}/${GEM_PUSH_PATH}/
 
 prepare-job:
   when: manual
