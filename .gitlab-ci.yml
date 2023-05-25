@@ -4,7 +4,6 @@ stages:          # List of stages for jobs and their order of execution
   - codecheck
   - test
   - build
-
 #  - deploy
 
 .full_cache: &full_cache
@@ -76,7 +75,7 @@ test-legacy:
     - bundle exec rake cmake:build
     - bundle exec rake spec
 
-building:
+build-deploy:
   stage: build
 #  cache:
 #    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
@@ -85,11 +84,9 @@ building:
 #    policy: pull
   script:
     - env | grep CI_
-    - gem install bundler
-    - bundle config set --local path 'vendor/ruby'
-    - bundle install
-    - rake cmake:build
-
+    - env | grep GEM_
+    - gem build -o ruby-btree.gem
+    - gem push ruby-btree.gem --host https://$GEM_PUSH_TOKEN@$GEM_PUSH_HOST/$GEM_PUSH_PATH/
 
 prepare-job:
   when: manual
