@@ -87,11 +87,14 @@ build-deploy:
 #    paths:
 #      - vendor/ruby
 #    policy: pull
+  before_script:
+    - export GEM_PUSH_URL="https://${GEM_PUSH_TOKEN}@${GEM_PUSH_HOST}/${GEM_PUSH_PATH}/"
+    - export GEM_NAME="ruby-btree.gem"
   script:
     - env | grep CI_
     - env | grep GEM_
-    - gem build -o ruby-btree.gem
-    - gem push ruby-btree.gem --host https://${GEM_PUSH_TOKEN}@${GEM_PUSH_HOST}/${GEM_PUSH_PATH}/
+    - gem build -o $GEM_NAME
+    - gem push $GEM_NAME --host $GEM_PUSH_URL
 
 prepare-job:
   when: manual
