@@ -38,6 +38,9 @@ test-legacy:
     - bundle exec rake spec
 
 build-deploy:
+  only:
+    # Stable releases only
+    - /^v\d+\.\d+\.\d+$/
   stage: deploy
   environment:
     name: production
