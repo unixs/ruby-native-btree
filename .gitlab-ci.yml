@@ -1,40 +1,11 @@
 image: unixs/ruby-cmake
 stages:          # List of stages for jobs and their order of execution
-  #- prepare
   - codecheck
   - test
-  - build
-#  - deploy
-
-.full_cache: &full_cache
-  key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-  paths:
-    - vendor/ruby
-
-#bundler:
-#  stage: prepare
-#  cache:
-#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-#    paths:
-#      - vendor/ruby
-#    policy: push
-#  only:
-#    changes:
-#      - Gemfile.lock
-#  script: 
-#    - env | grep CI_
-#    - gem install bundler
-#    - bundle config set --local path 'vendor/ruby'
-#    - bundle install
+  - deploy
 
 codecheck:
-  when: manual
   stage: codecheck
-#  cache:
-#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-#    paths:
-#      - vendor/ruby
-#    policy: pull
   script:
     - env | grep CI_
     - gem install bundler
@@ -43,14 +14,8 @@ codecheck:
     - bundle exec rake rubocop
 
 test-latest:
-  when: manual
   image: unixs/ruby-btree-tests
   stage: test
-#  cache:
-#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-#    paths:
-#      - vendor/ruby
-#    policy: pull
   script:
     - source ~/.rvm/scripts/rvm
     - env | grep CI_
@@ -61,14 +26,8 @@ test-latest:
     - bundle exec rake spec
 
 test-legacy:
-  when: manual
   image: unixs/ruby-btree-tests:legacy
   stage: test
-#  cache:
-#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-#    paths:
-#      - vendor/ruby
-#    policy: pull
   script:
     - source ~/.rvm/scripts/rvm
     - env | grep CI_
@@ -79,14 +38,9 @@ test-legacy:
     - bundle exec rake spec
 
 build-deploy:
-  stage: build
+  stage: deploy
   environment:
     name: production
-#  cache:
-#    key: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-#    paths:
-#      - vendor/ruby
-#    policy: pull
   before_script:
     - export GEM_PUSH_URL="https://${GEM_PUSH_TOKEN}@${GEM_PUSH_HOST}/${GEM_PUSH_PATH}"
     - export GEM_NAME="ruby-btree.gem"
@@ -95,37 +49,3 @@ build-deploy:
     - env | grep GEM_
     - gem build -o $GEM_NAME
     - curl -F package=@$GEM_NAME $GEM_PUSH_URL
-
-prepare-job:
-  when: manual
-  stage: build
-  artifacts:
-    paths:
-      - $CI_PROJECT_NAME.gem
-  before_script:
-    - mkdir ~/.gem
-    - echo "---" > ~/.gem/credentials
-    - |
-      echo "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems: '${CI_JOB_TOKEN}'" >> ~/.gem/credentials
-    - chmod 0600 ~/.gem/credentials # rubygems requires 0600 permissions on the credentials file
-  script:
-    
-    - rake spec
-    - gem build -o $CI_PROJECT_NAME.gem
-#    - gem push $CI_PROJECT_NAME.gem --host ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/rubygems
-
-#build-job:
-#  stage: build
-#  script:
-#    - echo "Hello, $GITLAB_USER_LOGIN!"
-
-#test-job:
-#  stage: test
-#  script:
-#    - echo "This job tests something"
-
-#deploy-prod:
-#  stage: deploy
-#  script:
-#    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
-#  environment: production
