@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    docker { image 'unixs/ruby-cmake' }
-  }
+  agent none
 
   stages {
     stage('codecheck') {
