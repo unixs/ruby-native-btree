@@ -1,5 +1,13 @@
 pipeline {
-    agent {
-        docker { image 'ruby:2.7' }
+  agent {
+    docker { image 'unixs/ruby-cmake' }
+  }
+
+  stages {
+    stage('codecheck') {
+      steps {
+        sh 'ruby --version'
+      }
     }
+  }
 }
