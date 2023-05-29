@@ -30,7 +30,7 @@ pipeline {
 
     stage('test latest') {
       agent {
-        docker { image: 'unixs/ruby-btree-tests }
+        docker { image: 'unixs/ruby-btree-tests' }
       }
       steps {
         sh 'gem install bundler'
