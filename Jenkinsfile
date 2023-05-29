@@ -5,6 +5,8 @@ pipeline {
     stage('codecheck') {
       agent { docker 'unixs/ruby-cmake' }
       steps {
+        sh 'ruby --version'
+        sh 'gem env'
         sh 'gem install bundler'
         sh 'bundle config set --local path "vendor/ruby"'
         sh 'bundle config set --local without development'
@@ -16,6 +18,8 @@ pipeline {
     stage('test legacy') {
       agent { docker 'unixs/ruby-btree-tests:legacy' }
       steps {
+        sh 'ruby --version'
+        sh 'gem env'
         sh 'gem install bundler'
         sh 'bundle config set --local path "vendor/ruby"'
         sh 'bundle config set --local without development'
@@ -28,6 +32,8 @@ pipeline {
     stage('test latest') {
       agent { docker 'unixs/ruby-btree-tests' }
       steps {
+        sh 'ruby --version'
+        sh 'gem env'
         sh 'gem install bundler'
         sh 'bundle config set --local path "vendor/ruby"'
         sh 'bundle config set --local without development'
