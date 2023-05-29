@@ -15,7 +15,9 @@ pipeline {
     }
 
     stage('test legacy') {
-      agent { docker 'unixs/ruby-btree-tests:legacy' }
+      agent {
+        docker { image: 'unixs/ruby-btree-tests:legacy' }
+      }
       steps {
         sh 'gem install bundler'
         sh 'bundle config set --local path "vendor/ruby"'
@@ -27,7 +29,9 @@ pipeline {
     }
 
     stage('test latest') {
-      agent { docker 'unixs/ruby-btree-tests' }
+      agent {
+        docker { image: 'unixs/ruby-btree-tests }
+      }
       steps {
         sh 'gem install bundler'
         sh 'bundle config set --local path "vendor/ruby"'
