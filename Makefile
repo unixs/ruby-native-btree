@@ -10,7 +10,7 @@ build: deps
 deps:
 	gem install bundler
 	bundle config set --local path "vendor/ruby"
-	bundle config set --local without developmen
+	bundle config set --local without development
 	bundle install
 .PHONY : deps
 
