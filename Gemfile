@@ -5,6 +5,8 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in ruby_btree.gemspec
 gemspec
 
+gem 'rake'
+
 group :development do
   gem 'awesome_print', '~> 1.9'
   gem 'debase', '~> 0.2', platforms: [:mri_26, :mri_27]
