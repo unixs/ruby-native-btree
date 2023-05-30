@@ -5,28 +5,21 @@ pipeline {
     stage('codecheck') {
       agent { docker 'unixs/ruby-cmake' }
       steps {
-        sh 'env'
-        sh '''#!/bin/bash -l
-          make codecheck
-        '''
+        sh 'make codecheck'
       }
     }
 
     stage('test legacy') {
       agent { docker 'unixs/ruby-btree-tests:legacy' }
       steps {
-        sh '''#!/bin/bash -l
-          make test
-        '''
+        sh './spec/test.sh'
       }
     }
 
     stage('test latest') {
       agent { docker 'unixs/ruby-btree-tests' }
       steps {
-        sh '''#!/bin/bash -l
-          make test
-        '''
+        sh './spec/test.sh'
       }
     }
   }
