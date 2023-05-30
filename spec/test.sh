@@ -11,9 +11,9 @@ rvm list
 
 pwd
 
-gem install bundler
 bundle config set --local path "vendor/ruby"
 bundle config set --local without development
 bundle install
+bundle exec rake cmake:rmbuild
 bundle exec rake cmake:rebuild
 bundle exec rake spec

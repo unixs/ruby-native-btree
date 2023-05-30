@@ -9,10 +9,10 @@ pipeline {
       }
     }
 
-    stage('test legacy') {
-      agent { docker 'unixs/ruby-cmake' }
+    stage('test latest') {
+      agent { docker 'unixs/ruby-btree-tests' }
       steps {
-        sh 'make test'
+        sh './spec/test.sh'
       }
     }
   }
