@@ -1,3 +1,5 @@
-#! /bin/bash -l
+#! /bin/bash
+
+source $HOME/.rvm/scripts/rvm
 
 make test
