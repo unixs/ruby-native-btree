@@ -4,7 +4,8 @@ default_target: build
 .PHONY : default_target
 
 build: deps
-	bundle exec rake cmake:rebuild
+	bundle exec rake cmake:rmbuild
+	bundle exec rake cmake:build
 .PHONY : build
 
 deps:
