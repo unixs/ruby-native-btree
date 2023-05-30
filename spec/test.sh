@@ -8,9 +8,9 @@ env
 gem env
 
 rvm list
+rvm use 3.2
 
-pwd
-
+gem install bundler
 bundle config set --local path "vendor/ruby"
 bundle config set --local without development
 bundle install
