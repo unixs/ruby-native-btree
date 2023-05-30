@@ -2,6 +2,8 @@
 
 source $DEV_HOME/.rvm/scripts/rvm
 
+export HOME=$DEV_HOME
+
 env
 gem env
 
