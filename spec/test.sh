@@ -1,5 +1,5 @@
 #! /bin/bash
 
-source ~/.rvm/scripts/rvm
+source $DEV_HOME/.rvm/scripts/rvm
 
 make test
