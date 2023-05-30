@@ -5,6 +5,7 @@ pipeline {
     stage('codecheck') {
       agent { docker 'unixs/ruby-cmake' }
       steps {
+        sh 'env'
         sh '''#!/bin/bash -l
           make codecheck
         '''
