@@ -15,7 +15,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
   apt-get -y install mc cmake gcovr libglib2.0-dev build-essential curl sudo \
     gawk autoconf automake bison libgdbm-dev libncurses5-dev libsqlite3-dev libtool \
     libyaml-dev sqlite3 libgmp-dev libreadline-dev openssl libssl-dev \
-    ruby ruby-dev && \
+    ruby ruby-dev bundler && \
   apt-get clean && \
   gem install bundler && \
   useradd -G sudo -ms /bin/bash ${DEV_USER} && \
