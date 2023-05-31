@@ -29,8 +29,6 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A170311380
   source /home/${DEV_USER}/.rvm/scripts/rvm && \
   rvm install ${RUBY_TEST_VER}
 
-ENV MY_RUBY_HOME=${DEV_HOME}/.rvm/rubies/ruby-{RUBY_TEST_VER}
-
 WORKDIR ${DEV_PATH}
 
 ENTRYPOINT ["/bin/bash", "-l"]
