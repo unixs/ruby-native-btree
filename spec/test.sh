@@ -7,8 +7,6 @@ export HOME=$DEV_HOME
 env
 gem env
 
-rvm list
-rvm use 3.2
 
 rm -rvf vendor/ruby
 bundle config set --local path "vendor/ruby"
