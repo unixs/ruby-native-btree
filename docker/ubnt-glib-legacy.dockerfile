@@ -17,6 +17,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     libyaml-dev sqlite3 libgmp-dev libreadline-dev openssl libssl-dev \
     ruby ruby2.7-dev && \
   apt-get clean && \
+  gem install bundler && \
   useradd -G sudo -ms /bin/bash ${DEV_USER} && \
   echo "$DEV_USER   ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers.d/${DEV_USER} && \
   su - ${DEV_USER} -c "mkdir ${DEV_PATH}"
