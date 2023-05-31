@@ -8,7 +8,7 @@ env
 gem env
 
 
-rm -rvf vendor/ruby
+rm -rf vendor/ruby
 bundle config set --local path "vendor/ruby"
 bundle config set --local without development
 bundle install
