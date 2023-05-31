@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source $DEV_HOME/.bash_profile
+source $DEV_HOME/.rvm/scripts/rvm
 
 export HOME=$DEV_HOME
 
