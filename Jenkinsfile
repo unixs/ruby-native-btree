@@ -10,7 +10,7 @@ pipeline {
     }
 
     stage('test latest') {
-      agent { docker 'esxiyaru/ruby-btree-tests:legacy' }
+      agent { docker 'unixs/ruby-btree-tests:legacy' }
       steps {
         sh './spec/test.sh'
       }
