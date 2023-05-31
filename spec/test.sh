@@ -10,6 +10,7 @@ gem env
 rvm list
 rvm use 3.2
 
+rm -rvf vendor/ruby
 bundle config set --local path "vendor/ruby"
 bundle config set --local without development
 bundle install

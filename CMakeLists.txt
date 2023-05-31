@@ -45,7 +45,7 @@ endif()
 find_package(PkgConfig REQUIRED)
 
 # Find Ruby
-find_package(Ruby ${REQUIRED_RUBY_VERSION} REQUIRED Ruby_FIND_VIRTUALENV)
+find_package(Ruby ${REQUIRED_RUBY_VERSION} REQUIRED)
 
 if(CMAKE_VERSION VERSION_GREATER "3.17.100")
 	include_directories(${Ruby_INCLUDE_DIRS})
